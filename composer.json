@@ -1,0 +1,6 @@
+{
+    "require": {
+        "michelf/php-markdown" : "1.4.*@dev",
+        "twig/twig" : "1.15.*@dev"
+    }
+}

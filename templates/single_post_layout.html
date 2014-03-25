@@ -1,0 +1,35 @@
+
+<!doctype html>
+<head>
+    <title>{{ blog_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="assets/css/main.css" type="media/screen">
+    <link href='http://fonts.googleapis.com/css?family=Noto+Serif:400,700|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+{% include "single_post_header.html" %}
+
+<section class="posts">
+    {% if post %}
+        <article class="post">
+            <header> 
+                <h4>
+                    {{ post.metadata.date }}
+
+                    {% if post.metadata.tags %}
+                    <span> on {{ post.metadata.tags }}</span>
+                    {% endif %}
+                </h4>
+
+                <h3>{{ post.metadata.title }}</h3>
+                {{ post.content }}
+            </header> 
+        </article>
+    {% endif %}
+</section>
+
+{% include "footer.html" %}
+</body>
+</html>
