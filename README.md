@@ -48,3 +48,4 @@ Variable              | Explanation
 ### Plugins
 
 The plugin API is changing a lot while I play around with it. You can copy the provided 'archive' plugin to create your own, but be aware it will probably be broken in future versions of Ghastly.
+
