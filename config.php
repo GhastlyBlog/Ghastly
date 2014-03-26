@@ -11,7 +11,7 @@ $config = array(
 	/**
 	 * The url of your blog goes here (without a trailing slash)
 	 */
-	'blog_url' => 'http://spook',
+	'blog_url' => 'http://localhost/spook',
 
 	/**
 	 * The name of your blog
@@ -34,6 +34,11 @@ $config = array(
 	'posts_per_page' => 5,
 
 	/**
+	 * The theme you want your blog to use
+	 */
+	'theme' => 'spooky',
+
+	/**
 	 * Where can Spook find all of your posts?
 	 */
 	'posts_dir' => 'posts',
@@ -47,7 +52,7 @@ $config = array(
 	 * Do you want to enable twig template caching?
 	 * If you choose to do so, you must chmod 777 your templates directory
 	 */
-	'cache' => true
+	'cache' => false
 
 
 );

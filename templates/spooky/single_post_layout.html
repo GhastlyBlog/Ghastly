@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+{% block header %}
+    {% include "single_post_header.html" %}
+{% endblock %}
+
+{% block content %}
+    <section class="posts">
+        {% if post %}
+            <article class="post">
+                <header> 
+                    <h4>
+                        {{ post.metadata.date }}
+
+                        {% if post.metadata.tags %}
+                        <span> on {{ post.metadata.tags }}</span>
+                        {% endif %}
+                    </h4>
+
+                    <h3>{{ post.metadata.title }}</h3>
+                    {{ post.content }}
+                </header> 
+            </article>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}

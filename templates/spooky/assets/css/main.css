@@ -4,7 +4,13 @@ html,body {
     font-family: 'Open Sans', sans-serif;
 }
 
-
+a {
+    text-decoration: none;
+    color: #aaa;
+}
+a:hover {
+    color: #57A3E8;
+}
 
 #header {
     background: #303538;
@@ -20,7 +26,6 @@ html,body {
 }
 #single-post-header a {
     color: #444;
-    text-decoration: none;
 }
 #single-post-header a:hover {
     color: #57A3E8;
@@ -29,6 +34,7 @@ html,body {
     text-align: center;
     color: #aaa;
 }
+
 .posts {
     width: 700px;
     margin: 0 auto;
@@ -39,7 +45,6 @@ html,body {
 
 .post header a {
     color: #444;
-    text-decoration: none
 }
 .post header a:hover {
     color: #57A3E8;
@@ -62,7 +67,6 @@ html,body {
     display: inline-block;
     padding: 5px 10px;
     border: 1px solid #ddd;
-    text-decoration: none;
     border-radius: 5px;
     margin-bottom: 10px;
     color: #aaa;

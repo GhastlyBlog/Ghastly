@@ -15,6 +15,7 @@ class Spook {
             'blog_url' => 'http://localhost',
             'blog_description' => 'Another spooky blog',
             'posts_dir' => 'posts',
+            'theme' => 'spooky',
             'templates_dir' => 'templates',
             'cache' => false,
             'posts_per_page' => 5
@@ -46,7 +47,7 @@ class Spook {
         
        
         \Twig_Autoloader::register();
-        $loader = new \Twig_Loader_Filesystem($this->options['templates_dir']);
+        $loader = new \Twig_Loader_Filesystem($this->options['templates_dir'].DIRECTORY_SEPARATOR.$this->options['theme']);
         
         $twig_environment_config = array('autoescape'=>false);
 
