@@ -38,6 +38,12 @@ $config = array(
 	 */
 	'theme' => 'spooky',
 
+
+
+
+	/** Only edit below if you know what you are doing **/
+	/** ---------------------------------------------- **/
+
 	/**
 	 * Where can Spook find all of your posts?
 	 */
