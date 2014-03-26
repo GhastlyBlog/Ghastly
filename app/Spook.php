@@ -47,7 +47,8 @@ class Spook {
         
        
         \Twig_Autoloader::register();
-        $loader = new \Twig_Loader_Filesystem($this->options['templates_dir'].DIRECTORY_SEPARATOR.$this->options['theme']);
+        $template_path = $this->options['templates_dir'].DIRECTORY_SEPARATOR.$this->options['theme'];
+        $loader = new \Twig_Loader_Filesystem($template_path);
         
         $twig_environment_config = array('autoescape'=>false);
 
@@ -64,16 +65,21 @@ class Spook {
             'blog_description'=>$this->options['blog_description']
         );
 
-        if($post_id){
-            $data['post'] = $post;
-            $layout = $twig->loadTemplate('single_post_layout.html');
-        } else {
+        if(isset($posts)){
             $data['posts'] = $posts;
             $layout = $twig->loadTemplate('layout.html');
         }
 
-        echo $layout->render($data);
+        if($post_id && isset($post)){
+            $data['post'] = $post;
+            $layout = $twig->loadTemplate('single_post_layout.html');
+        } 
 
+        if($post_id && !$post) {
+            $layout = $twig->loadTemplate('404.html');
+        }
+
+        echo $layout->render($data);
     }
 
 }

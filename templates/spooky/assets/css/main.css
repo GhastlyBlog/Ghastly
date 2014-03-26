@@ -12,6 +12,8 @@ a:hover {
     color: #57A3E8;
 }
 
+.error { text-align: center; }
+
 #header {
     background: #303538;
     color: #f0f0f0;
