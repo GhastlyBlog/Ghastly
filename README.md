@@ -3,7 +3,7 @@
 
 Spook is a markdown blog with a Ghost-like theme for the very lazy blogger. 
 
-![ProjectImage](chrisgillis.github.io/spook/spook.jpg)
+![ProjectImage](http://chrisgillis.github.io/spook/spook.jpg)
 
 ## Installation
 
