@@ -1,6 +1,6 @@
 <?php
 
-namespace Spook;
+namespace Ghastly;
 
 class PostModel {
 

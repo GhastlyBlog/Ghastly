@@ -1,6 +1,6 @@
 <?php
 
-namespace Spook;
+namespace Ghastly;
 
 class Config {
 
@@ -19,12 +19,12 @@ class Config {
     public function __construct($options) 
     {
         $defaults = array(
-            'blog_title' => 'Spook',
-            'blog_author' => 'Spooky Ghost',
+            'blog_title' => 'Ghastly',
+            'blog_author' => 'Ghastlyy Ghost',
             'blog_url' => 'http://localhost',
-            'blog_description' => 'Another spooky blog',
+            'blog_description' => 'Another Ghastlyy blog',
             'posts_dir' => 'posts',
-            'theme' => 'spooky',
+            'theme' => 'Ghastlyy',
             'templates_dir' => 'templates',
             'plugins_dir' => 'plugins',
             'plugins' => array(),

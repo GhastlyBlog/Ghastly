@@ -1,9 +1,9 @@
-# Spook
+# Ghastly
 -----
 
-Spook is a markdown blog with a Ghost-like theme for the very lazy blogger. 
+Ghastly is a markdown blog with a Ghost-like theme for the very lazy blogger. 
 
-![ProjectImage](http://chrisgillis.github.io/spook/spook.jpg)
+![ProjectImage](http://chrisgillis.github.io/Ghastly/Ghastly.jpg)
 
 ## Installation
 
@@ -24,13 +24,13 @@ The `tags:` line is optional.
 
 ## Themes
 
-Spook uses the `spooky` theme by default. You can copy it to a folder and rename it to something else to make your own theme. You can modify the html files however you like. Spook uses the Twig template engine.
+Ghastly uses the `spooky` theme by default. You can copy it to a folder and rename it to something else to make your own theme. You can modify the html files however you like. Ghastly uses the Twig template engine.
 
 Your template must have a `layout.html` file and a `single_post_layout.html` file.
 
 ### Template Variables
 
-Spook exposes the following variables for you to use in your templates:
+Ghastly exposes the following variables for you to use in your templates:
 
 Variable              | Explanation
 ----------------------|:------------
@@ -47,4 +47,4 @@ Variable              | Explanation
 
 ### Plugins
 
-The plugin API is changing a lot while I play around with it. You can copy the provided 'archive' plugin to create your own, but be aware it will probably be broken in future versions of spook.
+The plugin API is changing a lot while I play around with it. You can copy the provided 'archive' plugin to create your own, but be aware it will probably be broken in future versions of Ghastly.

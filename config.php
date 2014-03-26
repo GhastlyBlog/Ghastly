@@ -6,17 +6,17 @@
  * Change the options below as is needed
  */
 
-\Spook\Config::getInstance(array(
+\Ghastly\Config::getInstance(array(
 
 	/**
 	 * The url of your blog goes here (without a trailing slash)
 	 */
-	'blog_url' => 'http://spook',
+	'blog_url' => 'http://localhost',
 
 	/**
 	 * The name of your blog
 	 */
-	'blog_title' => 'Spook',
+	'blog_title' => 'Ghastly',
 
 	/**
 	 * The name of the person who wants credit for the articles
@@ -54,7 +54,7 @@
 	/** ---------------------------------------------- **/
 
 	/**
-	 * Where can Spook find all of your posts?
+	 * Where can Ghastly find all of your posts?
 	 */
 	'posts_dir' => 'posts',
 

@@ -12,7 +12,7 @@ require 'app/Config.php';
 require 'config.php';
 
 /**
- * Include spook classes
+ * Include Ghastly classes
  */
 require 'app/PostController.php';
 require 'app/PostModel.php';
@@ -21,7 +21,7 @@ require 'app/DirectoryPostRepository.php';
 require 'app/Plugin.php';
 require 'app/PluginManager.php';
 require 'app/Events.php';
-require 'app/Spook.php';
+require 'app/Ghastly.php';
 
 /**
  * Constant definitions 
@@ -29,11 +29,11 @@ require 'app/Spook.php';
 define('DS', DIRECTORY_SEPARATOR);
 
 /**
- * Instantiate a new Spook with the config options given
+ * Instantiate a new Ghastly with the config options given
  */
-$spook = new \Spook\Spook();
+$Ghastly = new \Ghastly\Ghastly();
 
 /**
- * Tell Spook to run
+ * Tell Ghastly to run
  */
-$spook->run();
+$Ghastly->run();

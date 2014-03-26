@@ -13,17 +13,17 @@ class Archive extends Plugin {
     public function __construct()
     {
         $this->events = array(
-            array('event'=>'spook.route', 'func'=>'onSpookRoute'),
-            array('event'=>'spook.pre_render', 'func'=>'onSpookPreRender')
+            array('event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'),
+            array('event'=>'Ghastly.pre_render', 'func'=>'onGhastlyPreRender')
         );
 
-        $this->options = \Spook\Config::getInstance()->options; 
-        $this->postRepository = new \Spook\DirectoryPostRepository();
-        $this->postModel = new \Spook\PostModel($this->postRepository);
+        $this->options = \Ghastly\Config::getInstance()->options; 
+        $this->postRepository = new \Ghastly\DirectoryPostRepository();
+        $this->postModel = new \Ghastly\PostModel($this->postRepository);
 
     }
 
-    public function onSpookRoute(\Spook\SpookRouteEvent $event){
+    public function onGhastlyRoute(\Ghastly\GhastlyRouteEvent $event){
         $event->router->respond('/archive', function($request){
             $this->archive_page = true;
             $this->archive_month = date('m');
@@ -36,7 +36,7 @@ class Archive extends Plugin {
         });
     }
 
-    public function onSpookPreRender(\Spook\SpookPreRenderEvent $event){
+    public function onGhastlyPreRender(\Ghastly\GhastlyPreRenderEvent $event){
         $event->template_vars['archives_url'] = "archive";
 
         if( ! $this->archive_page){ return; }

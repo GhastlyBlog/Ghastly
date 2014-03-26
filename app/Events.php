@@ -1,7 +1,7 @@
 <?php
 
-namespace Spook;
-class SpookRouteEvent extends \Symfony\Component\EventDispatcher\Event {
+namespace Ghastly;
+class GhastlyRouteEvent extends \Symfony\Component\EventDispatcher\Event {
     public $router;
 
     public function __construct($router){
@@ -9,7 +9,7 @@ class SpookRouteEvent extends \Symfony\Component\EventDispatcher\Event {
     }
 }
 
-class SpookPreRenderEvent extends \Symfony\Component\EventDispatcher\Event {
+class GhastlyPreRenderEvent extends \Symfony\Component\EventDispatcher\Event {
     public $template_vars;
     public $template_dirs;
     public $template;

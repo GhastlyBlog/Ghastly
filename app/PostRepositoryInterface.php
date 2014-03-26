@@ -1,5 +1,5 @@
 <?php
-namespace Spook;
+namespace Ghastly;
 
 interface PostRepositoryInterface {
     public function find($id);

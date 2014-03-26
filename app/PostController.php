@@ -1,6 +1,6 @@
 <?php
 
-namespace Spook;
+namespace Ghastly;
 
 class PostController {
 
@@ -11,26 +11,26 @@ class PostController {
     /**
      * The blog homepage, return a limited list of posts
      */
-    public function index($spook) {
-        $posts = $spook->postModel->findAll($this->options['posts_per_page']);
+    public function index($Ghastly) {
+        $posts = $Ghastly->postModel->findAll($this->options['posts_per_page']);
         
         foreach($posts as $key => $post)
         {
-            $posts[$key] = $spook->postModel->getPostById($post);
+            $posts[$key] = $Ghastly->postModel->getPostById($post);
         }
 
-        $spook->template_vars['posts'] = $posts;
-        $spook->template = 'layout.html';
+        $Ghastly->template_vars['posts'] = $posts;
+        $Ghastly->template = 'layout.html';
     }
 
     /**
      * Show a single post
      */
-    public function single($spook, $request) {
-        $post = $spook->postModel->getPostById($request->id);
+    public function single($Ghastly, $request) {
+        $post = $Ghastly->postModel->getPostById($request->id);
         
-        $spook->template_vars['post'] = $post;
-        $spook->template = 'single_post_layout.html';
+        $Ghastly->template_vars['post'] = $post;
+        $Ghastly->template = 'single_post_layout.html';
     }
 
 }

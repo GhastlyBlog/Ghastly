@@ -1,10 +1,10 @@
 <?php
 
-namespace Spook;
+namespace Ghastly;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class Spook {
+class Ghastly {
 
     public $twig;
     public $template;
@@ -40,7 +40,7 @@ class Spook {
     }
 
     /**
-     * Spook expects that the controllers will set $this->template.
+     * Ghastly expects that the controllers will set $this->template.
      */
     public function run() 
     {
@@ -49,11 +49,11 @@ class Spook {
         /**
          * Dispatch our route event so plugins can setup routes
          */
-        $event = new SpookRouteEvent($router);
-        $this->dispatcher->dispatch('spook.route', $event);
+        $event = new GhastlyRouteEvent($router);
+        $this->dispatcher->dispatch('Ghastly.route', $event);
 
         /**
-         * Spook's built-in routes
+         * Ghastly's built-in routes
          */
         $router->respond('/', function($request){
             $this->postController->index($this);
@@ -88,8 +88,8 @@ class Spook {
          * or inject template vars and templates because it didn't make 
          * sense for them to respond to a route.
          */
-        $event = new SpookPreRenderEvent($this->template_vars, $template_dirs, $this->template);
-        $pre_render = $this->dispatcher->dispatch('spook.pre_render', $event);
+        $event = new GhastlyPreRenderEvent($this->template_vars, $template_dirs, $this->template);
+        $pre_render = $this->dispatcher->dispatch('Ghastly.pre_render', $event);
 
         /**
          * Read data back from the plugins (if any)
