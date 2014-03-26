@@ -3,7 +3,7 @@
 
 Ghastly is a markdown blog with a Ghost-like theme for the very lazy blogger. 
 
-![ProjectImage](http://chrisgillis.github.io/Ghastly/Ghastly.jpg)
+![ProjectImage](http://chrisgillis.github.io/Ghastly/ghastly.png)
 
 ## Installation
 
