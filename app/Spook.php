@@ -5,7 +5,12 @@ namespace Spook;
 
 class Spook {
 
-    private $options;
+    protected $options;
+    protected $template_path;
+    protected $twig;
+
+    protected $PostRepository;
+    protected $PostModel;
 
     public function __construct($options = array())
     {
@@ -22,65 +27,60 @@ class Spook {
         );
 
         $this->options = array_merge($defaults, $options);
+        $this->PostRepository = new DirectoryPostRepository($this->options['posts_dir'], 'md');
+        $this->PostModel = new PostModel($this->PostRepository);
+        $this->template_path = $this->options['templates_dir'].DIRECTORY_SEPARATOR.$this->options['theme'];
+
+        $twig_environment_config = array('autoescape'=>false);
+
+        if($this->options['cache']) {
+            $twig_environment_config['cache'] = $this->options['templates_dir'].'/cache';
+        }
+
+        \Twig_Autoloader::register();
+        $loader = new \Twig_Loader_Filesystem($this->template_path);
+        $this->twig = new \Twig_Environment($loader, $twig_environment_config);
+
+        $this->data = array(
+            'blog_title'=>$this->options['blog_title'], 
+            'blog_author'=>$this->options['blog_author'], 
+            'blog_url'=>$this->options['blog_url'],
+            'blog_description'=>$this->options['blog_description']
+        );
     }
 
     public function run() 
     {
         $post_id = isset($_GET['post']) ? $_GET['post'] : false;       
 
-        $PostRepository = new DirectoryPostRepository($this->options['posts_dir'], 'md');
-        $PostModel = new PostModel($PostRepository);
-
         if($post_id){
-            $post = $PostModel->get_post_by_id($post_id);
-            
+            $post = $this->PostModel->get_post_by_id($post_id);
+            $this->data['post'] = $post;
         } else {
-            $found_posts = $PostModel->find_all($this->options['posts_per_page']);
-        
-            $posts = array();
+            $posts = $this->PostModel->find_all($this->options['posts_per_page']);
 
-            foreach($found_posts as $post)
+            foreach($posts as $key => $post)
             {
-                $posts[] = $PostModel->get_post_by_id($post);
+                $posts[$key] = $this->PostModel->get_post_by_id($post);
             }
-        }
-        
-       
-        \Twig_Autoloader::register();
-        $template_path = $this->options['templates_dir'].DIRECTORY_SEPARATOR.$this->options['theme'];
-        $loader = new \Twig_Loader_Filesystem($template_path);
-        
-        $twig_environment_config = array('autoescape'=>false);
 
-        if($this->options['cache']) {
-            $twig_environment_config['cache'] = $this->options['templates_dir'].'/cache';
-        }
-        
-        $twig = new \Twig_Environment($loader, $twig_environment_config);
-
-        $data = array(
-            'blog_title'=>$this->options['blog_title'], 
-            'blog_author'=>$this->options['blog_author'], 
-            'blog_url'=>$this->options['blog_url'],
-            'blog_description'=>$this->options['blog_description']
-        );
-
-        if(isset($posts)){
-            $data['posts'] = $posts;
-            $layout = $twig->loadTemplate('layout.html');
+            $this->data['posts'] = $posts;
         }
 
-        if($post_id && isset($post)){
-            $data['post'] = $post;
-            $layout = $twig->loadTemplate('single_post_layout.html');
-        } 
-
-        if($post_id && !$post) {
-            $layout = $twig->loadTemplate('404.html');
-        }
-
-        echo $layout->render($data);
+        $layout = $this->_getTemplate();
+        echo $layout->render($this->data);
     }
 
-}
+    private function _getTemplate()
+    {
+        if(isset($this->data['posts'])) {
+            return $this->twig->loadTemplate('layout.html');
+        }
 
+        if(isset($this->data['post']) && $this->data['post']) {
+            return $this->twig->loadTemplate('single_post_layout.html');
+        }
+
+        return $this->twig->loadTemplate('404.html');
+    }
+}
