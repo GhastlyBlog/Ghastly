@@ -19,8 +19,11 @@
                     </h4>
 
                     <h3>{{ post.metadata.title }}</h3>
-                    {{ post.content }}
                 </header> 
+
+                {{ post.content }}
+                
+                <footer>by {{ blog_author }}</footer>
             </article>
         {% endif %}
     </section>

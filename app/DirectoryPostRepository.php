@@ -45,7 +45,8 @@ class DirectoryPostRepository implements PostRepositoryInterface {
     public function find($id)
     {
         $filepath = $this->directory.DIRECTORY_SEPARATOR.$id.'.'.$this->file_extension;
-        
+        $filepath = $this->_escape_filename($filepath);
+
         if(file_exists($filepath))
         {
             return $filepath;
@@ -85,5 +86,10 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         }  
 
         return array('metadata'=>$config_options, 'content'=>$post, 'summary'=>$post_summary);
+    }
+
+    private function _escape_filename($filename)
+    {
+        return str_replace('/', '', $filename);
     }
 }
