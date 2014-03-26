@@ -1,3 +1,4 @@
+# Apache (.htaccess or httpd.conf)
 RewriteEngine On
-RewriteRule ^([a-zA-Z0-9-]+)$ index.php?post=$1
-RewriteRule ^([a-zA-Z0-9-]+)/$ index.php?post=$1
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . /index.php [L] 

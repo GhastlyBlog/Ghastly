@@ -6,12 +6,12 @@
  * Change the options below as is needed
  */
 
-$config = array(
+\Spook\SpookConfig::getInstance(array(
 
 	/**
 	 * The url of your blog goes here (without a trailing slash)
 	 */
-	'blog_url' => 'http://localhost/spook',
+	'blog_url' => 'http://spook',
 
 	/**
 	 * The name of your blog
@@ -61,4 +61,4 @@ $config = array(
 	'cache' => false
 
 
-);
+));
