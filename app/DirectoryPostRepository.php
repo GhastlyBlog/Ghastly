@@ -44,8 +44,8 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
     public function find($id)
     {
+        $id = $this->_escape_filename($id);
         $filepath = $this->directory.DIRECTORY_SEPARATOR.$id.'.'.$this->file_extension;
-        $filepath = $this->_escape_filename($filepath);
 
         if(file_exists($filepath))
         {
@@ -76,6 +76,9 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         }
 
         $config_options['slug'] = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($id)));
+        preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $id, $matches); 
+        $config_options['date'] = $matches[1];
+
         $post = explode('-----'.PHP_EOL, $post);
         $post = $post[2];
         $post = Markdown::defaultTransform($post);

@@ -51,6 +51,7 @@ class Spook {
 
     public function run() 
     {
+        //$router = new \Klein\Klein();
         $post_id = isset($_GET['post']) ? $_GET['post'] : false;       
 
         if($post_id){
@@ -58,7 +59,7 @@ class Spook {
             $this->data['post'] = $post;
         } else {
             $posts = $this->PostModel->find_all($this->options['posts_per_page']);
-
+            
             foreach($posts as $key => $post)
             {
                 $posts[$key] = $this->PostModel->get_post_by_id($post);

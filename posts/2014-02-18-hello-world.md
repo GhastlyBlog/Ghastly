@@ -1,6 +1,5 @@
 -----
 title: Hello World!
-date: 2012-02-18
 -----
 
 
