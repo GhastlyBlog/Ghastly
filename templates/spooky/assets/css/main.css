@@ -74,6 +74,11 @@ a:hover {
     color: #aaa;
 }
 
+/** Plugin Styles **/
+.archive-links {
+    margin-bottom: 50px;
+}
+
 @media screen and (max-width: 980px) {
     .posts {
         width: 80%;

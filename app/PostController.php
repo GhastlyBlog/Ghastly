@@ -1,31 +1,36 @@
 <?php
+
 namespace Spook;
 
 class PostController {
-    public static function index($spook) {
-        $options = SpookConfig::getInstance()->options;
-        $PostRepository = new DirectoryPostRepository($options['posts_dir'], 'md');
-        $PostModel = new PostModel($PostRepository);
 
-        $posts = $PostModel->find_all($options['posts_per_page']);
+    public function __construct(){
+        $this->options = Config::getInstance()->options;
+    } 
+    
+    /**
+     * The blog homepage, return a limited list of posts
+     */
+    public function index($spook) {
+        $posts = $spook->postModel->findAll($this->options['posts_per_page']);
         
         foreach($posts as $key => $post)
         {
-            $posts[$key] = $PostModel->get_post_by_id($post);
+            $posts[$key] = $spook->postModel->getPostById($post);
         }
 
-        $spook->data['posts'] = $posts;
+        $spook->template_vars['posts'] = $posts;
         $spook->template = 'layout.html';
     }
 
-    public static function single($spook, $request) {
-        $options = SpookConfig::getInstance()->options;
-        $PostRepository = new DirectoryPostRepository($options['posts_dir'], 'md');
-        $PostModel = new PostModel($PostRepository);
-
-        $post = $PostModel->get_post_by_id($request->id);
+    /**
+     * Show a single post
+     */
+    public function single($spook, $request) {
+        $post = $spook->postModel->getPostById($request->id);
         
-        $spook->data['post'] = $post;
+        $spook->template_vars['post'] = $post;
         $spook->template = 'single_post_layout.html';
     }
+
 }

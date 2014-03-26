@@ -44,3 +44,7 @@ Variable              | Explanation
  `blog_author`        | The name of the blog author
  `blog_url`           | The url your blog is located at
  `blog_description`   | The description of your blog if you gave one
+
+### Plugins
+
+The plugin API is changing a lot while I play around with it. You can copy the provided 'archive' plugin to create your own, but be aware it will probably be broken in future versions of spook.

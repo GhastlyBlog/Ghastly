@@ -1,6 +1,8 @@
 <?php
+
 namespace Spook;
-class SpookConfig {
+
+class Config {
 
     private static $instance = null;
 
@@ -24,6 +26,8 @@ class SpookConfig {
             'posts_dir' => 'posts',
             'theme' => 'spooky',
             'templates_dir' => 'templates',
+            'plugins_dir' => 'plugins',
+            'plugins' => array(),
             'cache' => false,
             'posts_per_page' => 5
         );

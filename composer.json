@@ -2,6 +2,7 @@
     "require": {
         "michelf/php-markdown" : "1.4.*@dev",
         "twig/twig" : "1.15.*@dev",
-        "klein/klein" : "2.0.*"
+        "klein/klein" : "2.0.*",
+        "symfony/event-dispatcher" : "2.4.2"
     }
 }

@@ -1,16 +1,32 @@
 <?php
+
 namespace Spook;
 
 use \Michelf\Markdown;
 
+/**
+ * Sometimes bloggers are SO lazy that they don't even want to issue the
+ * generate command for static sites. I benchmarked ~30 requests / second
+ * on my very average desktop with 1000 blog posts in the directory.
+ * Good enough for most people, I imagine.
+ */
 class DirectoryPostRepository implements PostRepositoryInterface {
+
+    /**
+     * The directory all of the entities are located in 
+     */
     protected $directory;
+
+    /**
+     * The file extension of the entities
+     */
     protected $file_extension;
 
-    public function __construct($directory, $file_extension)
+    public function __construct()
     {
-        $this->directory = $directory;
-        $this->file_extension = 'md';
+        $options = Config::getInstance()->options;
+        $this->directory = $options['posts_dir'];
+        $this->file_extension = $options['post_file_extension'];
     }
 
     public function find_all($limit=5)
@@ -18,17 +34,22 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         foreach(new \DirectoryIterator($this->directory) as $file)
         {
             if($file->isDot()){ continue; }
-            $posts[] = $file->getBasename('.'.$this->file_extension); 
+
+            $filename = $file->getBasename('.'.$this->file_extension);
+
+            preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $filename, $matches); 
+            $date = $matches[1];
+
+            $posts[] = array(
+                'filename'=> $filename, 
+                'date' => new \DateTime($date)
+            ); 
+
         }
 
         usort($posts, function($a, $b){
-            preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $a, $matches); 
-            $a = $matches[1];
-            preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $b, $matches); 
-            $b = $matches[1];
-
-            $a_date = new \DateTime($a);
-            $b_date = new \DateTime($b);
+            $a_date = $a['date'];
+            $b_date = $b['date'];
 
             if($a_date == $b_date){
                 return 0;
@@ -37,13 +58,16 @@ class DirectoryPostRepository implements PostRepositoryInterface {
             return $a_date < $b_date ? 1 : -1;
         });
 
-        if($limit) { array_splice($posts, $limit); };  
+        if($limit && $limit !== 0) { array_splice($posts, $limit); };  
         
         return $posts;
     }
 
     public function find($id)
     {
+        if(is_array($id)){
+            $id = $id['filename'];
+        }
         $id = $this->_escape_filename($id);
         $filepath = $this->directory.DIRECTORY_SEPARATOR.$id.'.'.$this->file_extension;
 
@@ -57,11 +81,17 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
     public function read($id)
     {
+        if( !is_array($id)) 
+        {
+            preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $id, $matches); 
+            $date = $matches[1];
+            $id = array('filename'=>$id, 'date'=>new \DateTime($date));
+        } 
+
         $post = $this->find($id);
         if(! $post){ return false; }
 
         $post = file_get_contents($post);
-
 
         $post_config_lines = array();
         $config_options = array();
@@ -75,9 +105,9 @@ class DirectoryPostRepository implements PostRepositoryInterface {
             $config_options[trim($option[0])] = trim($option[1]);
         }
 
-        $config_options['slug'] = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($id)));
-        preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $id, $matches); 
-        $config_options['date'] = $matches[1];
+        $config_options['slug'] = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($id['filename'])));
+
+        $config_options['date'] = $id['date']->format('Y-m-d');
 
         $post = explode('-----'.PHP_EOL, $post);
         $post = $post[2];

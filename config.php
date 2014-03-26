@@ -6,7 +6,7 @@
  * Change the options below as is needed
  */
 
-\Spook\SpookConfig::getInstance(array(
+\Spook\Config::getInstance(array(
 
 	/**
 	 * The url of your blog goes here (without a trailing slash)
@@ -31,12 +31,21 @@
 	/**
 	 * How many posts do you want displayed at once
 	 */
-	'posts_per_page' => 5,
+	'posts_per_page' => 1,
 
 	/**
 	 * The theme you want your blog to use
 	 */
 	'theme' => 'spooky',
+
+    /**
+     * The plugins you would like to enable
+     */
+    'plugins' => array('archive'),
+
+
+
+
 
 
 
@@ -54,11 +63,20 @@
 	 */
 	'templates_dir' => 'templates',
 
+    /**
+     * Where can we find your plugins?
+     */
+    'plugins_dir' => 'plugins',
+
+    /**
+     * Post file extension
+     */
+    'post_file_extension' => 'md',
+
 	/**
 	 * Do you want to enable twig template caching?
 	 * If you choose to do so, you must chmod 777 your templates directory
 	 */
 	'cache' => false
-
 
 ));
