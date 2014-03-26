@@ -29,7 +29,7 @@ class PluginManager {
     public function loadPlugins()
     {
         foreach($this->enabled_plugins as $plugin) {
-            require_once($this->options['plugins_dir'].DIRECTORY_SEPARATOR.$plugin.DIRECTORY_SEPARATOR.$plugin.'.plugin.php');
+            require_once($this->options['plugins_dir'].DS.$plugin.DS.$plugin.'.plugin.php');
             $this->plugins[] = new $plugin();
          } 
     }

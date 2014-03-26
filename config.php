@@ -21,7 +21,7 @@
 	/**
 	 * The name of the person who wants credit for the articles
 	 */
-	'blog_author' => 'Mr. Ghost',
+	'blog_author' => 'Ghastly',
 
 	/**
 	 * Describe your blog in a few words

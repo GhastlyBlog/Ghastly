@@ -29,7 +29,7 @@ require 'app/Ghastly.php';
 define('DS', DIRECTORY_SEPARATOR);
 
 /**
- * Instantiate a new Ghastly with the config options given
+ * Instantiate a new Ghastly
  */
 $Ghastly = new \Ghastly\Ghastly();
 

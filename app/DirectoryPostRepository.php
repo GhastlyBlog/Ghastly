@@ -69,7 +69,7 @@ class DirectoryPostRepository implements PostRepositoryInterface {
             $id = $id['filename'];
         }
         $id = $this->_escape_filename($id);
-        $filepath = $this->directory.DIRECTORY_SEPARATOR.$id.'.'.$this->file_extension;
+        $filepath = $this->directory.DS.$id.'.'.$this->file_extension;
 
         if(file_exists($filepath))
         {
