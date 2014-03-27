@@ -13,11 +13,6 @@ class PostController {
      */
     public function index($Ghastly) {
         $posts = $Ghastly->postModel->findAll($this->options['posts_per_page']);
-        
-        foreach($posts as $key => $post)
-        {
-            $posts[$key] = $Ghastly->postModel->getPostById($post);
-        }
 
         $Ghastly->template_vars['posts'] = $posts;
         $Ghastly->template = 'layout.html';

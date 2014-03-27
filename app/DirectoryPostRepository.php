@@ -2,13 +2,14 @@
 
 namespace Ghastly;
 
-use \Michelf\Markdown;
-
 /**
- * Sometimes bloggers are SO lazy that they don't even want to issue the
- * generate command for static sites. I benchmarked ~30 requests / second
- * on my very average desktop with 1000 blog posts in the directory.
- * Good enough for most people, I imagine.
+ * Expects the directory it's reading to contain files in a format
+ * of yyyy-mm-dd-name-of-file.ext  
+ *
+ * Entire file should match ([0-9]{4}-[0-9]{2}-[0-9]{2})[A-Za-z0-9-]+
+ *
+ * This classes methods are chainable.
+ *  $repo->findAll->limit(5)->getResults();
  */
 class DirectoryPostRepository implements PostRepositoryInterface {
 
@@ -22,31 +23,106 @@ class DirectoryPostRepository implements PostRepositoryInterface {
      */
     protected $file_extension;
 
+    /**
+     * A collection of files
+     */
+    protected $entities;
+
     public function __construct()
     {
         $options = Config::getInstance()->options;
+
         $this->directory = $options['posts_dir'];
         $this->file_extension = $options['post_file_extension'];
     }
 
-    public function find_all($limit=5)
+
+    /**
+     * Grabs all files in the directory sorted by date desc
+     */
+    public function findAll()
     {
+        // Loop over every file in the data directory
         foreach(new \DirectoryIterator($this->directory) as $file)
         {
+            // Skip hidden files
             if($file->isDot()){ continue; }
 
+            // Get the filename of the file
             $filename = $file->getBasename('.'.$this->file_extension);
 
-            preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $filename, $matches); 
-            $date = $matches[1];
-
+            // Build post
             $posts[] = array(
                 'filename'=> $filename, 
-                'date' => new \DateTime($date)
+                'date' => $this->_getDateFromFilename($filename)
             ); 
-
         }
 
+        // Sort results by date desc
+        $this->entities = $this->_sortByDateDesc($posts);
+
+        return $this;
+    }
+
+    /** 
+     * Returns a single file / date from a filename
+     */
+    public function find($filename)
+    {
+        $filename = $this->_escape_filename($filename);
+        $filepath = $this->directory.DS.$filename.'.'.$this->file_extension;
+
+        $post = array(
+            'filename' => $filename,
+            'date' => $this->_getDateFromFilename($filename)
+        );
+        
+        $this->entities = (file_exists($filepath)) ? array($post) : array();
+
+        return $this;
+    }
+
+    public function limit($limit)
+    {
+        if($limit && $limit !== 0) { 
+            array_splice($this->entities, $limit); 
+        }; 
+
+        return $this;
+    }
+
+    public function getResults($headers_only = false)
+    {
+        if(! $headers_only)
+        {
+            foreach($this->entities as $key => $entity) {
+                $this->entities[$key]['content'] = file_get_contents($this->directory.DS.$entity['filename'].'.'.$this->file_extension);
+            }
+        }
+
+        return $this->entities;
+    }
+
+    public function getResult()
+    {
+        $this->entities[0]['content'] = file_get_contents($this->directory.DS.$this->entities[0]['filename'].'.'.$this->file_extension);
+        
+        return $this->entities[0];
+    }
+
+    private function _getDateFromFilename($filename)
+    {
+        preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $filename, $matches); 
+        return isset($matches[1]) ? new \DateTime($matches[1]) : null;
+    }
+
+    private function _escape_filename($filename)
+    {
+        return str_replace('/', '', $filename);
+    }
+
+    private function _sortByDateDesc($posts)
+    {
         usort($posts, function($a, $b){
             $a_date = $a['date'];
             $b_date = $b['date'];
@@ -56,73 +132,9 @@ class DirectoryPostRepository implements PostRepositoryInterface {
             }
 
             return $a_date < $b_date ? 1 : -1;
-        });
+        }); 
 
-        if($limit && $limit !== 0) { array_splice($posts, $limit); };  
-        
         return $posts;
     }
-
-    public function find($id)
-    {
-        if(is_array($id)){
-            $id = $id['filename'];
-        }
-        $id = $this->_escape_filename($id);
-        $filepath = $this->directory.DS.$id.'.'.$this->file_extension;
-
-        if(file_exists($filepath))
-        {
-            return $filepath;
-        } else {
-            return false;
-        }
-    }
-
-    public function read($id)
-    {
-        if( !is_array($id)) 
-        {
-            preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $id, $matches); 
-            $date = $matches[1];
-            $id = array('filename'=>$id, 'date'=>new \DateTime($date));
-        } 
-
-        $post = $this->find($id);
-        if(! $post){ return false; }
-
-        $post = file_get_contents($post);
-
-        $post_config_lines = array();
-        $config_options = array();
-
-        $post_config = explode('-----', $post);
-        $post_config = explode(PHP_EOL, $post_config[1]);
-        $post_config = array_filter($post_config, function($n){ return trim($n); });
-        $post_config = array_map(function($n){ return explode(':', $n); }, $post_config);
-
-        foreach($post_config as $option){
-            $config_options[trim($option[0])] = trim($option[1]);
-        }
-
-        $config_options['slug'] = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($id['filename'])));
-
-        $config_options['date'] = $id['date']->format('Y-m-d');
-
-        $post = explode('-----', $post);
-        $post = $post[2];
-        $post = Markdown::defaultTransform($post);
-
-        $post_summary = false;
-        if(str_word_count($post) > 50){
-            $post_summary = implode(' ', array_slice(explode(' ', $post), 0, 50));
-        }  
-
-        return array('metadata'=>$config_options, 'content'=>$post, 'summary'=>$post_summary);
-    }
-
-    private function _escape_filename($filename)
-    {
-        return str_replace('/', '', $filename);
-    }
+   
 }

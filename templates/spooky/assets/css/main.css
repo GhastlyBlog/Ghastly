@@ -8,7 +8,7 @@ a {
     text-decoration: none;
     color: #aaa;
 }
-a:hover {
+a:hover, a.active {
     color: #57A3E8;
 }
 
@@ -77,6 +77,11 @@ a:hover {
 /** Plugin Styles **/
 .archive-links {
     margin-bottom: 50px;
+}
+.archive-links ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 @media screen and (max-width: 980px) {

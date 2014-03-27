@@ -1,22 +1,21 @@
 <?php
 
 namespace Ghastly;
+
 class GhastlyRouteEvent extends \Symfony\Component\EventDispatcher\Event {
+    public $Ghastly;
     public $router;
 
-    public function __construct($router){
+    public function __construct($Ghastly, $router){
+        $this->Ghastly = $Ghastly;
         $this->router = $router;
     }
 }
 
 class GhastlyPreRenderEvent extends \Symfony\Component\EventDispatcher\Event {
-    public $template_vars;
-    public $template_dirs;
-    public $template;
+    public $Ghastly;
 
-    public function __construct($template_vars, $template_dirs, $template){
-        $this->template_vars = $template_vars;
-        $this->template_dirs = $template_dirs;
-        $this->template = $template;
+    public function __construct($Ghastly){
+        $this->Ghastly = $Ghastly;
     }
 }

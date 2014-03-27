@@ -9,6 +9,8 @@ class Ghastly {
     public $twig;
     public $template;
     public $template_vars;
+    public $template_dirs;
+
     public $postModel;
 
     protected $options;
@@ -29,6 +31,7 @@ class Ghastly {
 
         /** Let template vars include all of the config options **/
         $this->template_vars = $this->options;
+        $this->template_dirs = array($this->options['templates_dir'].DS.$this->options['theme']);
 
         /** Create the event dispatcher **/
         $this->dispatcher = new EventDispatcher();
@@ -49,7 +52,7 @@ class Ghastly {
         /**
          * Dispatch our route event so plugins can setup routes
          */
-        $event = new GhastlyRouteEvent($router);
+        $event = new GhastlyRouteEvent($this, $router);
         $this->dispatcher->dispatch('Ghastly.route', $event);
 
         /**
@@ -78,25 +81,15 @@ class Ghastly {
     private function _render()
     {
         /**
-         * Set the default template directory. If a plugin provides or extends
-         * any templates, it's expected to push() them onto $template_dirs
-         */
-        $template_dirs = array($this->options['templates_dir'].DS.$this->options['theme']);
-
-        /**
+         * If a plugin provides or extends
+         * any templates, it's expected to push them onto $this->template_dirs
+         *
          * Dispatch PreRenderEvent so that plugins have a chance to modify
          * or inject template vars and templates because it didn't make 
          * sense for them to respond to a route.
          */
-        $event = new GhastlyPreRenderEvent($this->template_vars, $template_dirs, $this->template);
-        $pre_render = $this->dispatcher->dispatch('Ghastly.pre_render', $event);
-
-        /**
-         * Read data back from the plugins (if any)
-         */
-        $this->template_vars = $pre_render->template_vars;
-        $template_dirs = $pre_render->template_dirs;
-        $this->template = $pre_render->template;
+        $event = new GhastlyPreRenderEvent($this);
+        $this->dispatcher->dispatch('Ghastly.pre_render', $event);
 
         /**
          * Configure the twig environment
@@ -105,9 +98,8 @@ class Ghastly {
         if($this->options['cache']) {
             $config['cache'] = $this->options['templates_dir'].'/cache';
         }
-
         
-        $loader = new \Twig_Loader_Filesystem($template_dirs);
+        $loader = new \Twig_Loader_Filesystem($this->template_dirs);
         $this->twig = new \Twig_Environment($loader, $config);
 
         /**

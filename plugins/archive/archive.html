@@ -9,7 +9,7 @@
         <section class="archive-links">
             <ul>
                 {% for link in archive_links %}
-                <li><a href="{{ blog_url }}/archive/{{ link.month }}/{{ link.year }}">{{ link.month_name }} ({{ link.num_posts }})</a></li>
+                <li><a href="{{ blog_url }}/archive/{{ link.month }}/{{ link.year }}" class="{% if link.active %}active{% endif %}">{{ link.month_name }} ({{ link.num_posts }})</a></li>
                 {% endfor %}
             </ul>
         </section>
