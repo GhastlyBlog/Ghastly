@@ -98,7 +98,7 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
         $post_config = explode('-----', $post);
         $post_config = explode(PHP_EOL, $post_config[1]);
-        $post_config = array_filter($post_config, function($n){ return $n; });
+        $post_config = array_filter($post_config, function($n){ return trim($n); });
         $post_config = array_map(function($n){ return explode(':', $n); }, $post_config);
 
         foreach($post_config as $option){
@@ -109,7 +109,7 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
         $config_options['date'] = $id['date']->format('Y-m-d');
 
-        $post = explode('-----'.PHP_EOL, $post);
+        $post = explode('-----', $post);
         $post = $post[2];
         $post = Markdown::defaultTransform($post);
 
