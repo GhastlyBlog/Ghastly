@@ -26,7 +26,7 @@ The `tags:` line is optional.
 
 ## Themes
 
-Ghastly uses the `spooky` theme by default. You can copy it to a folder and rename it to something else to make your own theme. You can modify the html files however you like. Ghastly uses the Twig template engine.
+Ghastly uses the `spooky` theme by default. You can copy it to a folder and rename it to something else to make your own theme. You can modify the html files however you like. Ghastly uses the [Twig](https://github.com/fabpot/twig) template engine.
 
 Your template must have a `layout.html` file and a `single_post_layout.html` file.
 
