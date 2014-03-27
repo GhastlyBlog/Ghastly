@@ -3,11 +3,13 @@
 
 Ghastly is a markdown blog with a Ghost-like theme for the very lazy blogger. 
 
-![ProjectImage](http://chrisgillis.github.io/Ghastly/Ghastly.jpg)
+![ProjectImage](http://chrisgillis.github.io/Ghastly/ghastly.png)
 
 ## Installation
 
-Clone the repository, run `composer install` and edit `config.php`. 
+Clone the repository, run `composer install` and edit `config.php`. That's it. If you're installing in a sub directory, add `RewriteBase /path/to/dir` to `.htaccess`.
+
+## Posting
 
 Create posts in `posts/` in the format of `2014-12-28-my-blog-post-title.md`.
 
