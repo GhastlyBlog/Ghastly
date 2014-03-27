@@ -3,7 +3,7 @@ title: Introducing Ghastly
 -----
 
 
-Ghastly is a markdown blog with a Ghost-like theme that doesn't require you to run any generator commands. Unless you have thousands of blog articles being hit and more than 50 simultaenous requests per second on your blog, it's performant. 
+Ghastly is a markdown blog with a Ghost-like theme that doesn't require you to run any generator commands. Unless you have thousands of blog articles being hit and more than 50 simultaneous requests per second on your blog, it's performant. 
 
 Just put your formatted markdown files in the posts directory wherever you're hosting your website and thats it.
 
