@@ -54,32 +54,35 @@ All of the options in `config.php` are available as template variables.
 
 Your theme must be in a repository and it must contain a `composer.json` file that references a type of `ghastly-theme` and must require  `ghastly/theme-installer` as a dependency. Your repository must also be available on [Packagist](http://packagist.org)
 
-    {
-        "name" : "ghastly/spooky",
-        "description" : "An excellent theme for Ghastly",
-        "type" : "ghastly-theme",
-        "license" : "UNLICENSE",
-        "require" : {
-            "ghastly/theme-installer" : "@dev"
-        }
+```javascript
+{
+    "name" : "ghastly/spooky",
+    "description" : "An excellent theme for Ghastly",
+    "type" : "ghastly-theme",
+    "license" : "UNLICENSE",
+    "require" : {
+        "ghastly/theme-installer" : "@dev"
     }
-
+}
+````
 ### Developing Plugins
 
 Before you embark on creating Ghastly plugins, be aware that the plugin API is likely going to be changing a lot as I play around with it.
 
 Create a class that extends `Plugin` and put it in a folder with a name the same as the class you just created. . Your class should populate a public class property `$this->events` with any events the plugin will subscribe to.
 
-    class Archive extends Plugin {
-        public $events;
-        public function __construct()
-        {
-            $this->events = [
-                ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
-                ['event'=>'Ghastly.pre_render', 'func'=>'onGhastlyPreRender']
-            ];
-        }
+```php
+class Archive extends Plugin {
+    public $events;
+    public function __construct()
+    {
+        $this->events = [
+            ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
+            ['event'=>'Ghastly.pre_render', 'func'=>'onGhastlyPreRender']
+        ];
     }
+}
+```
 
 Add the plugin to the `plugins` config option in `config.php` to enable it.
 
