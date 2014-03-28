@@ -137,3 +137,7 @@ Your plugin must be in a repository and it must contain a `composer.json` file t
         }
     }
 ```
+
+## Contributing
+
+Bring on the pull requests. I'm open to your ideas and suggestions. If you want to be very active, I can add you to the team.
