@@ -1,4 +1,4 @@
 vendor/*
-templates/cache/*
+themes/cache/*
 .phpcomplete*
 config.php
