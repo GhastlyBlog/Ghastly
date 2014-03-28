@@ -41,6 +41,7 @@ Variable              | Explanation
  `post.metadata.date` | The date of a post
  `post.metadata.tags` | The tags of a post
  `post.metadata.title`| The title of a post
+ `post.metadata.summary` | The summary of a post if supplied through front matter
  `post.content`       | The html content of a post
  `blog_title`         | The name of your blog
  `blog_author`        | The name of the blog author
