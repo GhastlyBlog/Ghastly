@@ -69,9 +69,9 @@ class PostModel {
 
         // Use a summary: in the front matter over judiciously chopping the first 50 words.
         if( ! array_key_exists('summary', $config_options)) {
-            $post['summary'] = $post_summary;
+            $post['metadata']['summary'] = $post_summary;
         }
-        
+
         return $post;
     }
 
