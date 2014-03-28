@@ -122,7 +122,7 @@ The `hello_world.html` template now has `{{ greeting }}` available to it when Gh
 This event lets you modify the Ghastly instance on any route after it and all plugins have responded to the route.
 
 
-##### Publishing your plugin for others
+## Publishing your plugin for others
 
 Your plugin must be in a repository and it must contain a `composer.json` file that references a type of `ghastly-plugin` and must require `ghastly/plugin-installer` as a dependency. Your repository must also be available on [Packagist](http://packagist.org)
 
