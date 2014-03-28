@@ -27,8 +27,8 @@
                     <h3><a href="{{ blog_url }}/post/{{ post.metadata.slug }}">{{ post.metadata.title }}</a></h3>
                 </header> 
 
-                {% if post.summary %}
-                    {{ post.summary }} ...
+                {% if post.metadata.summary %}
+                    {{ post.metadata.summary }} ...
                 {% else %}
                     {{ post.content }}
                 {% endif %}

@@ -11,7 +11,7 @@
 	/**
 	 * The url of your blog goes here (without a trailing slash)
 	 */
-	'blog_url' => 'http://ghastly',
+	'blog_url' => 'http://localhost',
 
 	/**
 	 * The name of your blog

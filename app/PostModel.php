@@ -65,7 +65,14 @@ class PostModel {
             $post_summary = implode(' ', array_slice(explode(' ', $post_content), 0, 50));
         }  
 
-        return array('metadata'=>$config_options, 'content'=>$post_content, 'summary'=>$post_summary);
+        $post = array('metadata'=>$config_options, 'content'=>$post_content);
+
+        // Use a summary: in the front matter over judiciously chopping the first 50 words.
+        if( ! array_key_exists('summary', $config_options)) {
+            $post['summary'] = $post_summary;
+        }
+        
+        return $post;
     }
 
 }
