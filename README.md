@@ -43,12 +43,24 @@ Variable              | Explanation
  `post.metadata.title`| The title of a post
  `post.metadata.summary` | The summary of a post if supplied through front matter
  `post.content`       | The html content of a post
- `blog_title`         | The name of your blog
- `blog_author`        | The name of the blog author
- `blog_url`           | The url your blog is located at
- `blog_description`   | The description of your blog if you gave one
+ 
+All of the options in `config.php` are available as template variables.
 
 ### Plugins
 
 The plugin API is changing a lot while I play around with it. You can copy the provided 'archive' plugin to create your own, but be aware it will probably be broken in future versions of Ghastly.
+
+##### Archive
+
+Archive is a Ghastly plugin that adds an Archives page to your blog. Archive exposes:
+
+Variable              | Explanation
+----------------------|:------------
+ `archive_links`      | An array of archive links
+     `link.month`     | An archive month
+     `link.year`      | An archive year
+     `link.active`    | True/false if this month/year is active
+     `link.month_name`| The spelled out name of the month
+     `link.num_posts` | Number of posts in the month
+
 
