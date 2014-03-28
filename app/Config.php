@@ -25,7 +25,7 @@ class Config {
             'blog_description' => 'Another Ghastlyy blog',
             'posts_dir' => 'posts',
             'theme' => 'Ghastlyy',
-            'templates_dir' => 'templates',
+            'themes_dir' => 'templates',
             'plugins_dir' => 'plugins',
             'plugins' => array(),
             'cache' => false,

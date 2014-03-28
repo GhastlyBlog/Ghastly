@@ -11,7 +11,7 @@
 	/**
 	 * The url of your blog goes here (without a trailing slash)
 	 */
-	'blog_url' => 'http://ghastly',
+	'blog_url' => 'http://localhost',
 
 	/**
 	 * The name of your blog
@@ -65,7 +65,7 @@
 	'posts_dir' => 'posts',
 
 	/**
-	 * Where can we find your themes?
+	 * Where can we find your templates?
 	 */
 	'themes_dir' => 'themes',
 

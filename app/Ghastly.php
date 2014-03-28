@@ -31,7 +31,7 @@ class Ghastly {
 
         /** Let template vars include all of the config options **/
         $this->template_vars = $this->options;
-        $this->template_dirs = array($this->options['templates_dir'].DS.$this->options['theme']);
+        $this->template_dirs = array($this->options['themes_dir'].DS.$this->options['theme']);
 
         /** Create the event dispatcher **/
         $this->dispatcher = new EventDispatcher();
@@ -96,7 +96,7 @@ class Ghastly {
          */
         $config = array('autoescape'=>false);
         if($this->options['cache']) {
-            $config['cache'] = $this->options['templates_dir'].'/cache';
+            $config['cache'] = $this->options['themes_dir'].'/cache';
         }
         
         $loader = new \Twig_Loader_Filesystem($this->template_dirs);
