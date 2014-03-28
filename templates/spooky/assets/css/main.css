@@ -25,10 +25,12 @@ a:hover, a.active {
     display: table;
     width: 100%;
     margin-bottom: 50px;
+    color: #fff;
 }
 #header h1 {
     margin: 0;
     padding: 0;
+
 }
 .vertical {
     display: table-cell;

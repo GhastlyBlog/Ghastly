@@ -26,7 +26,7 @@
 	/**
 	 * Describe your blog in a few words
 	 */
-	'blog_description' => '',
+	'blog_description' => 'Just another blogging platform',
 
 	/**
 	 * How many posts do you want displayed at once
@@ -37,6 +37,12 @@
 	 * The theme you want your blog to use
 	 */
 	'theme' => 'spooky',
+
+	/**
+	 * A file in images_dir used for background of blog banner in themes
+	 * that support it. Set to '' for none.
+	 */
+	'banner_image' => 'background.png',
 
     /**
      * The plugins you would like to enable
@@ -67,6 +73,11 @@
      * Where can we find your plugins?
      */
     'plugins_dir' => 'plugins',
+
+    /**
+     * Your images directory
+     */
+    'images_dir' => 'images',
 
     /**
      * Post file extension
