@@ -5,17 +5,12 @@
 	"homepage" : "http://github.com/chrisgillis/Ghastly",
 	"license" : "UNLICENSE",
     "require": {
-    	"php" : ">=5.3.0",
         "michelf/php-markdown" : "1.4.*@dev",
         "twig/twig" : "1.15.*@dev",
         "klein/klein" : "2.0.*",
-        "symfony/event-dispatcher" : "2.4.2"
+        "symfony/event-dispatcher" : "2.4.2",
+        "ghastly/archive" : "dev-master@dev",
+        "ghastly/spooky" : "dev-master@dev"
     },
-
-    "extra" : {
-        "installer-paths" : {
-            "plugins/" : ["type:ghastly-plugin"]
-        }
-    }
-
+    "minimum-stability" : "dev"
 }

@@ -3,8 +3,122 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8e833adb798b61d42048d096c9b2ac43",
+    "hash": "f72233089201de358d33bff6a616dfe2",
     "packages": [
+        {
+            "name": "ghastly/archive",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GhastlyBlog/Archive.git",
+                "reference": "117d6dccbfb2b9dc4f5c6f19088d1b6debc6de44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GhastlyBlog/Archive/zipball/117d6dccbfb2b9dc4f5c6f19088d1b6debc6de44",
+                "reference": "117d6dccbfb2b9dc4f5c6f19088d1b6debc6de44",
+                "shasum": ""
+            },
+            "require": {
+                "ghastly/plugin-installer": "@dev"
+            },
+            "type": "ghastly-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "UNLICENSE"
+            ],
+            "description": "An archive plugin for Ghastly",
+            "time": "2014-03-28 20:43:36"
+        },
+        {
+            "name": "ghastly/plugin-installer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ghastlyblog/plugin-installer.git",
+                "reference": "5100abc76a32eed62c1a9fe2a66f3126b031deb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ghastlyblog/plugin-installer/zipball/5100abc76a32eed62c1a9fe2a66f3126b031deb6",
+                "reference": "5100abc76a32eed62c1a9fe2a66f3126b031deb6",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "*"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Ghastly\\Composer\\PluginInstallerPlugin"
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ghastly": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "UNLICENSE"
+            ],
+            "time": "2014-03-28 20:42:10"
+        },
+        {
+            "name": "ghastly/spooky",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ghastlyblog/spooky.git",
+                "reference": "2f6611a1a0a04dc5846c926d5492ed33b1ece527"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ghastlyblog/spooky/zipball/2f6611a1a0a04dc5846c926d5492ed33b1ece527",
+                "reference": "2f6611a1a0a04dc5846c926d5492ed33b1ece527",
+                "shasum": ""
+            },
+            "require": {
+                "ghastly/theme-installer": "@dev"
+            },
+            "type": "ghastly-theme",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "UNLICENSE"
+            ],
+            "description": "A theme for Ghastly that kind of reminds you of another blogging platform",
+            "time": "2014-03-28 21:06:12"
+        },
+        {
+            "name": "ghastly/theme-installer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GhastlyBlog/theme-installer.git",
+                "reference": "b9a4e60c3527634fa1355fde4e7d1ae0c6f89f37"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GhastlyBlog/theme-installer/zipball/b9a4e60c3527634fa1355fde4e7d1ae0c6f89f37",
+                "reference": "b9a4e60c3527634fa1355fde4e7d1ae0c6f89f37",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "*"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Ghastly\\Composer\\ThemeInstallerPlugin"
+            },
+            "autoload": {
+                "psr-0": {
+                    "Ghastly": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "UNLICENSE"
+            ],
+            "time": "2014-03-28 21:00:03"
+        },
         {
             "name": "klein/klein",
             "version": "v2.0.2",
@@ -31,7 +145,7 @@
                     "Klein": "."
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -87,7 +201,7 @@
                     "Michelf": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -146,7 +260,7 @@
                     "Symfony\\Component\\EventDispatcher\\": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -194,7 +308,7 @@
                     "Twig_": "lib/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -230,10 +344,12 @@
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "michelf/php-markdown": 20,
-        "twig/twig": 20
+        "twig/twig": 20,
+        "ghastly/archive": 20,
+        "ghastly/spooky": 20
     },
     "platform": [
 

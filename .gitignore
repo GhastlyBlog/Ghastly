@@ -1,5 +1,6 @@
 vendor/*
 themes/cache/*
 plugins/*
+themes/*
 .phpcomplete*
 config.php
