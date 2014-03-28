@@ -97,23 +97,24 @@ Note that all events are passed an instance of $Ghastly.
 
 Your Ghastly plugin can respond to routes by subscribing to this event. Example:
 
-    class Hello extends Plugin {
-        public $events;
-        public function __construct()
-        {
-            $this->events = [
-                ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
-            ];
-        }
-        
-        public function onGhastlyRoute(\Ghastly\GhastlyRouteEvent $event){
-            $event->router->respond('/some_route', function() use ($event){
-                $this->Ghastly->template_vars['greeting'] = 'Hello World!'; 
-                $this->Ghastly->template = 'hello_world.html';
-            });
-        }
+```php
+class Hello extends Plugin {
+    public $events;
+    public function __construct()
+    {
+        $this->events = [
+            ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
+        ];
     }
-
+    
+    public function onGhastlyRoute(\Ghastly\GhastlyRouteEvent $event){
+        $event->router->respond('/some_route', function() use ($event){
+            $this->Ghastly->template_vars['greeting'] = 'Hello World!'; 
+            $this->Ghastly->template = 'hello_world.html';
+        });
+    }
+}
+```
 The `hello_world.html` template now has `{{ greeting }}` available to it when Ghastly is responding to `some_route`. You can modify existing template variables in the same manner. 
 
 ##### Ghastly.pre_render
@@ -125,6 +126,7 @@ This event lets you modify the Ghastly instance on any route after it and all pl
 
 Your plugin must be in a repository and it must contain a `composer.json` file that references a type of `ghastly-plugin` and must require `ghastly/plugin-installer` as a dependency. Your repository must also be available on [Packagist](http://packagist.org)
 
+```javascript
     {
         "name" : "ghastly/archive",
         "description" : "An archive plugin for Ghastly",
@@ -134,3 +136,4 @@ Your plugin must be in a repository and it must contain a `composer.json` file t
             "ghastly/plugin-installer" : "@dev"
         }
     }
+```
