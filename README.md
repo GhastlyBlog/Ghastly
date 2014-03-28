@@ -70,16 +70,16 @@ Before you embark on creating Ghastly plugins, be aware that the plugin API is l
 
 Create a class that extends `Plugin` and put it in a folder with a name the same as the class you just created. . Your class should populate a public class property `$this->events` with any events the plugin will subscribe to.
 
-class Archive extends Plugin {
-    public $events;
-    public function __construct()
-    {
-        $this->events = [
-            ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
-            ['event'=>'Ghastly.pre_render', 'func'=>'onGhastlyPreRender']
-        ];
+    class Archive extends Plugin {
+        public $events;
+        public function __construct()
+        {
+            $this->events = [
+                ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
+                ['event'=>'Ghastly.pre_render', 'func'=>'onGhastlyPreRender']
+            ];
+        }
     }
-}
 
 Add the plugin to the `plugins` config option in `config.php` to enable it.
 
