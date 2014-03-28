@@ -46,6 +46,25 @@ Variable              | Explanation
  
 All of the options in `config.php` are available as template variables.
 
+### Installing new Plugins and Themes
+
+Ghastly plugins and themes are available via Composer. Add them to your `composer.json` and run `composer update`.
+
+### Publishing Plugins and Themes
+
+Your repository must contain a `composer.json` file that references a type of `ghastly-plugin` or `ghastly-theme` and must require `ghastly/plugin-installer` or `ghastly/theme-installer` as dependencies. Your repository must also be available on [Packagist](http://packagist.org)
+
+    {
+        "name" : "ghastly/archive",
+        "description" : "An archive plugin for Ghastly",
+        "type" : "ghastly-plugin",
+        "license" : "UNLICENSE",
+        "require" : {
+            "ghastly/plugin-installer" : "@dev"
+        }
+    }
+
+
 ### Plugins
 
 The plugin API is changing a lot while I play around with it. You can copy the provided 'archive' plugin to create your own, but be aware it will probably be broken in future versions of Ghastly.
