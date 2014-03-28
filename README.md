@@ -83,9 +83,9 @@ class Archive extends Plugin {
 
 Add the plugin to the `plugins` config option in `config.php` to enable it.
 
-Event                 | Class | Event Properties
-----------------------|:--------:---------------
- `Ghastly.route`      | GhastlyRouteEvent | Make your plugin respond to routes
+Event                 | Class                 |Event Properties
+----------------------|:----------------------:---------------
+ `Ghastly.route`      | GhastlyRouteEvent     | Make your plugin respond to routes
  `Ghastly.pre_render` | GhastlyPreRenderEvent | Inject template variables prior to rendering
 
 Note that all events are passed an instance of $Ghastly.
