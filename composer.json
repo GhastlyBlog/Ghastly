@@ -10,5 +10,12 @@
         "twig/twig" : "1.15.*@dev",
         "klein/klein" : "2.0.*",
         "symfony/event-dispatcher" : "2.4.2"
+    },
+
+    "extra" : {
+        "installer-paths" : {
+            "plugins/" : ["type:ghastly-plugin"]
+        }
     }
+
 }
