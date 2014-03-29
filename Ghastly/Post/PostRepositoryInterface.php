@@ -1,5 +1,6 @@
 <?php
-namespace Ghastly;
+
+namespace Ghastly\Post;
 
 interface PostRepositoryInterface {
 

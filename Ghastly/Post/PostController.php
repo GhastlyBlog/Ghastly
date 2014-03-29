@@ -1,6 +1,8 @@
 <?php
 
-namespace Ghastly;
+namespace Ghastly\Post;
+
+use Ghastly\Config\Config;
 
 class PostController {
 

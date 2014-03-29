@@ -5,23 +5,10 @@
  */
 require 'vendor/autoload.php';
 
-/**
- * Include the configuration options 
+/** 
+ * Include the configuration file
  */
-require 'app/Config.php';
 require 'config.php';
-
-/**
- * Include Ghastly classes
- */
-require 'app/PostController.php';
-require 'app/PostModel.php';
-require 'app/PostRepositoryInterface.php';
-require 'app/DirectoryPostRepository.php';
-require 'app/Plugin.php';
-require 'app/PluginManager.php';
-require 'app/Events.php';
-require 'app/Ghastly.php';
 
 /**
  * Constant definitions 

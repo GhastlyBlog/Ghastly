@@ -4,6 +4,9 @@
 	"description" : "A PHP markdown blog with customizable themes and plugins.",
 	"homepage" : "http://github.com/chrisgillis/Ghastly",
 	"license" : "UNLICENSE",
+    "autoload" : {
+        "psr-0": { "Ghastly\\" : "" }
+    },
     "require": {
         "michelf/php-markdown" : "1.4.*@dev",
         "twig/twig" : "1.15.*@dev",

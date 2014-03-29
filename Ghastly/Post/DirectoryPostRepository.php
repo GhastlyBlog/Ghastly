@@ -1,6 +1,8 @@
 <?php
 
-namespace Ghastly;
+namespace Ghastly\Post;
+
+use Ghastly\Config\Config;
 
 /**
  * Expects the directory it's reading to contain files in a format

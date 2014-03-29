@@ -1,6 +1,6 @@
 <?php
 
-namespace Ghastly;
+namespace Ghastly\Post;
 
 use \Michelf\Markdown;
 

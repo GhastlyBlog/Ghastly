@@ -3,14 +3,21 @@
 namespace Ghastly;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Klein\Klein;
+
+use Ghastly\Event\PreRenderEvent;
+use Ghastly\Event\PreRouteEvent;
+use Ghastly\Config\Config;
+use Ghastly\Plugin\PluginManager;
+use Ghastly\Post\PostController;
+use Ghastly\Post\PostModel;
+use Ghastly\Post\DirectoryPostRepository;
 
 class Ghastly {
 
-    public $twig;
     public $template;
     public $template_vars;
     public $template_dirs;
-
     public $postModel;
 
     protected $options;
@@ -47,13 +54,13 @@ class Ghastly {
      */
     public function run() 
     {
-        $router = new \Klein\Klein();
+        $router = new Klein();
 
         /**
          * Dispatch our route event so plugins can setup routes
          */
-        $event = new GhastlyRouteEvent($this, $router);
-        $this->dispatcher->dispatch('Ghastly.route', $event);
+        $event = new PreRouteEvent($this, $router);
+        $this->dispatcher->dispatch('Ghastly.PreRoute', $event);
 
         /**
          * Ghastly's built-in routes
@@ -88,8 +95,8 @@ class Ghastly {
          * or inject template vars and templates because it didn't make 
          * sense for them to respond to a route.
          */
-        $event = new GhastlyPreRenderEvent($this);
-        $this->dispatcher->dispatch('Ghastly.pre_render', $event);
+        $event = new PreRenderEvent($this);
+        $this->dispatcher->dispatch('Ghastly.PreRender', $event);
 
         /**
          * Configure the twig environment
@@ -100,12 +107,12 @@ class Ghastly {
         }
         
         $loader = new \Twig_Loader_Filesystem($this->template_dirs);
-        $this->twig = new \Twig_Environment($loader, $config);
+        $twig = new \Twig_Environment($loader, $config);
 
         /**
          * Set the template and render compiled template to screen
          */
-        $layout = $this->twig->loadTemplate($this->template);
+        $layout = $twig->loadTemplate($this->template);
         echo $layout->render($this->template_vars);
     }
 }

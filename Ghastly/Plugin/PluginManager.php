@@ -1,5 +1,7 @@
 <?php
-namespace Ghastly;
+namespace Ghastly\Plugin;
+
+use Ghastly\Config\Config;
 
 class PluginManager {
 
