@@ -94,7 +94,7 @@ Event                 |Event Properties
 
 Note that all events are passed an instance of $Ghastly.
 
-##### Ghastly.route
+##### Ghastly.PreRoute
 
 Your Ghastly plugin can respond to routes by subscribing to this event. Example:
 
@@ -118,7 +118,7 @@ class Hello extends \Ghastly\Plugin\Plugin {
 ```
 The `hello_world.html` template now has `{{ greeting }}` available to it when Ghastly is responding to `some_route`. You can modify existing template variables in the same manner. 
 
-##### Ghastly.pre_render
+##### Ghastly.PreRender
 
 This event lets you modify the Ghastly instance on any route after it and all plugins have responded to the route.
 
