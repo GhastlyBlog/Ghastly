@@ -61,7 +61,7 @@ Your theme must be in a repository and it must contain a `composer.json` file th
     "type" : "ghastly-theme",
     "license" : "UNLICENSE",
     "require" : {
-        "ghastly/theme-installer" : "@dev"
+        "ghastly/theme-installer" : "dev-master"
     }
 }
 ````
@@ -73,13 +73,13 @@ Before you embark on creating Ghastly plugins, be aware that the plugin API is l
 Create a class that extends `Plugin` and put it in a folder with a name the same as the class you just created. . Your class should populate a public class property `$this->events` with any events the plugin will subscribe to.
 
 ```php
-class Archive extends Plugin {
+class Archive extends \Ghastly\Plugin\Plugin {
     public $events;
     public function __construct()
     {
         $this->events = [
-            ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
-            ['event'=>'Ghastly.pre_render', 'func'=>'onGhastlyPreRender']
+            ['event'=>'Ghastly.PreRoute', 'func'=>'onPreRoute'],
+            ['event'=>'Ghastly.PreRender', 'func'=>'onPreRender']
         ];
     }
 }
@@ -89,26 +89,26 @@ Add the plugin to the `plugins` config option in `config.php` to enable it.
 
 Event                 |Event Properties
 ----------------------|:---------------
- `Ghastly.route`      | Make your plugin respond to routes
- `Ghastly.pre_render` | Inject template variables prior to rendering
+ `Ghastly.PreRoute`      | Make your plugin respond to routes
+ `Ghastly.PreRender` | Inject template variables prior to rendering
 
 Note that all events are passed an instance of $Ghastly.
 
-##### Ghastly.route
+##### Ghastly.PreRoute
 
 Your Ghastly plugin can respond to routes by subscribing to this event. Example:
 
 ```php
-class Hello extends Plugin {
+class Hello extends \Ghastly\Plugin\Plugin {
     public $events;
     public function __construct()
     {
         $this->events = [
-            ['event'=>'Ghastly.route', 'func'=>'onGhastlyRoute'],
+            ['event'=>'Ghastly.PreRoute', 'func'=>'onPreRoute'],
         ];
     }
     
-    public function onGhastlyRoute(\Ghastly\GhastlyRouteEvent $event){
+    public function onPreRoute(\Ghastly\Event\PreRouteEvent $event){
         $event->router->respond('/some_route', function() use ($event){
             $this->Ghastly->template_vars['greeting'] = 'Hello World!'; 
             $this->Ghastly->template = 'hello_world.html';
@@ -118,7 +118,7 @@ class Hello extends Plugin {
 ```
 The `hello_world.html` template now has `{{ greeting }}` available to it when Ghastly is responding to `some_route`. You can modify existing template variables in the same manner. 
 
-##### Ghastly.pre_render
+##### Ghastly.PreRender
 
 This event lets you modify the Ghastly instance on any route after it and all plugins have responded to the route.
 
@@ -134,7 +134,7 @@ Your plugin must be in a repository and it must contain a `composer.json` file t
         "type" : "ghastly-plugin",
         "license" : "UNLICENSE",
         "require" : {
-            "ghastly/plugin-installer" : "@dev"
+            "ghastly/plugin-installer" : "dev-master"
         }
     }
 ```
