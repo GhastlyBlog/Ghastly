@@ -8,8 +8,9 @@ class PostModel {
 
     protected $db;
 
-    public function __construct(PostRepositoryInterface $db){
+    public function __construct(PostRepositoryInterface $db, PostParser $parser){
         $this->db = $db;
+        $this->parser = $parser;
     }
 
     public function findAll($limit=0)
@@ -18,7 +19,7 @@ class PostModel {
 
         foreach($posts as $key => $post)
         {
-            $posts[$key] = $this->_buildPostFromMarkdownFile($post);
+            $posts[$key] = $this->parser->parse($post);
         }
 
         return $posts;
@@ -34,45 +35,7 @@ class PostModel {
     public function getPostById($id)
     {
         $post = $this->db->find($id)->getResult();
-        return $this->_buildPostFromMarkdownFile($post);
-    }
-
-    private function _buildPostFromMarkdownFile($post)
-    {
-
-        $post_content = $post['content'];
-      
-        $config_options = $post_config_lines = array();
-
-        $post_config = $post_content = explode('-----', $post_content);
-        $post_config = explode(PHP_EOL, $post_config[1]);
-        $post_config = array_filter($post_config, function($n){ return trim($n); });
-        $post_config = array_map(function($n){ return explode(':', $n); }, $post_config);
-
-        foreach($post_config as $option){
-            $config_options[trim($option[0])] = trim($option[1]);
-        }
-
-        $config_options['slug'] = strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($post['filename'])));
-
-        $config_options['date'] = $post['date']->format('Y-m-d');
-
-        $post_content = $post_content[2];
-        $post_content = Markdown::defaultTransform($post_content);
-
-        $post_summary = false;
-        if(str_word_count($post_content) > 50){
-            $post_summary = implode(' ', array_slice(explode(' ', $post_content), 0, 50));
-        }  
-
-        $post = array('metadata'=>$config_options, 'content'=>$post_content);
-
-        // Use a summary: in the front matter over judiciously chopping the first 50 words.
-        if( ! array_key_exists('summary', $config_options)) {
-            $post['metadata']['summary'] = $post_summary;
-        }
-
-        return $post;
+        return $this->parser->parse($post);
     }
 
 }

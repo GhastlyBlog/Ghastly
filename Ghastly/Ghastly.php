@@ -12,6 +12,7 @@ use Ghastly\Plugin\PluginManager;
 use Ghastly\Post\PostController;
 use Ghastly\Post\PostModel;
 use Ghastly\Post\DirectoryPostRepository;
+use Ghastly\Post\PostParser;
 
 class Ghastly {
 
@@ -34,7 +35,7 @@ class Ghastly {
         $this->postController = new PostController();
         
         /** Instantiate Post Model **/
-        $this->postModel = new PostModel(new DirectoryPostRepository());
+        $this->postModel = new PostModel(new DirectoryPostRepository(), new PostParser());
 
         /** Let template vars include all of the config options **/
         $this->template_vars = $this->options;

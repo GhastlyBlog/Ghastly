@@ -1,5 +1,6 @@
 -----
 title: Introducing Ghastly
+tags: blogging, software
 summary: Ghastly is a markdown blog with a Ghost-like theme that doesn't require you to run any generator commands. Just put your formatted markdown files in the posts directory wherever you're hosting your website and 
 -----
 
