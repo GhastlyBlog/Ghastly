@@ -6,7 +6,7 @@
  * Change the options below as is needed
  */
 
-\Ghastly\Config::getInstance(array(
+\Ghastly\Config\Config::getInstance(array(
 
 	/**
 	 * The url of your blog goes here (without a trailing slash)
