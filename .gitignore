@@ -2,5 +2,5 @@ vendor/*
 plugins/*
 themes/*
 .phpcomplete*
-config.php
+/config.php
 composer.lock
