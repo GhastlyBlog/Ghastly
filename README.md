@@ -17,12 +17,19 @@ A post should have a jekyll-like front matter. An example post would look like:
 
     -----
     title: My blog post title!
+    summary: A short summary about this post
     tags: something, stuff
     -----
 
     Lorem ipsum dolor sit amet...
 
-The `tags:` line is optional.
+##### Front Matter Items
+
+Option    | Explanation
+----------|:-----------
+title     | The title of your blog post
+summary   | A summary of your blog post
+tags      | A comma seperated list of tags for a post
 
 ## Installing new Plugins and Themes
 
@@ -42,10 +49,10 @@ Variable              | Explanation
 ----------------------|:------------
  `posts`              | This is an array of posts
  `post`               | A single post
- `post.metadata.date` | The date of a post
- `post.metadata.tags` | The tags of a post
- `post.metadata.title`| The title of a post
- `post.metadata.summary` | The summary of a post if supplied through front matter
+ `post.date` | The date of a post
+ `post.tags` | The tags of a post
+ `post.title`| The title of a post
+ `post.summary` | The summary of a post if supplied through front matter
  `post.content`       | The html content of a post
  
 All of the options in `config.php` are available as template variables.
