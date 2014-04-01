@@ -6,15 +6,17 @@ use Ghastly\Config\Config;
 
 class PostController {
 
-    public function __construct(){
-        $this->options = Config::getInstance()->options;
+    protected $config;
+
+    public function __construct(Config $config){
+        $this->config = $config;
     } 
     
     /**
      * The blog homepage, return a limited list of posts
      */
     public function index($Ghastly) {
-        $posts = $Ghastly->postModel->findAll($this->options['posts_per_page']);
+        $posts = $Ghastly->postModel->findAll($this->config->options['posts_per_page']);
 
         $Ghastly->template_vars['posts'] = $posts;
         $Ghastly->template = 'layout.html';

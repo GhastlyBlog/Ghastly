@@ -18,7 +18,7 @@ define('DS', DIRECTORY_SEPARATOR);
 /**
  * Instantiate a new Ghastly
  */
-$Ghastly = new \Ghastly\Ghastly();
+$Ghastly = new \Ghastly\Ghastly($ghastly_config);
 
 /**
  * Tell Ghastly to run

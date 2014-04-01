@@ -22,21 +22,13 @@ class PluginManager {
      */
     public $enabled_plugins = array();
 
-    public $options = array();
+    public $config;
 
-    public static function getInstance()
+    public function __construct(Config $config) 
     {
-        if( !isset(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
-    public function __construct() 
-    {
-        $this->options = Config::getInstance()->options;
-        $this->plugins_dir = $this->options['plugins_dir'];
-        $this->enabled_plugins = $this->options['plugins'];
+        $this->config = $config;
+        $this->plugins_dir = $this->config->options['plugins_dir'];
+        $this->enabled_plugins = $this->config->options['plugins'];
     }
 
 
@@ -44,7 +36,7 @@ class PluginManager {
     {
         // Loop over all of the plugins to enable and attempt to include them
         foreach($this->enabled_plugins as $plugin) {
-            require_once($this->options['plugins_dir'].DS.$plugin.DS.$plugin.'.plugin.php');
+            require_once($this->config->options['plugins_dir'].DS.$plugin.DS.$plugin.'.plugin.php');
             $this->plugins[] = new $plugin();
          } 
     }

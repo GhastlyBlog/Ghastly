@@ -4,17 +4,7 @@ namespace Ghastly\Config;
 
 class Config {
 
-    private static $instance = null;
-
     public $options = array();
-
-    public static function getInstance($options=false)
-    {
-        if( !isset(self::$instance)) {
-            self::$instance = new self($options);
-        }
-        return self::$instance;
-    }
 
     public function __construct($options) 
     {

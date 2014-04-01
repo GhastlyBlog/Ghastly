@@ -21,31 +21,31 @@ class Ghastly {
     public $template_dirs;
     public $postModel;
 
-    protected $options;
+    protected $config;
     protected $template_path;
     protected $dispatcher;
     protected $postController;
 
-    public function __construct()
+    public function __construct($config)
     {
         /** Initialize Configuration Options **/
-        $this->options = Config::getInstance()->options;
+        $this->config = new Config($config);
 
         /** Instantiate Post Controller **/
-        $this->postController = new PostController();
+        $this->postController = new PostController($this->config);
         
         /** Instantiate Post Model **/
-        $this->postModel = new PostModel(new DirectoryPostRepository(), new PostParser());
+        $this->postModel = new PostModel(new DirectoryPostRepository($this->config), new PostParser());
 
         /** Let template vars include all of the config options **/
-        $this->template_vars = $this->options;
-        $this->template_dirs = array($this->options['themes_dir'].DS.$this->options['theme']);
+        $this->template_vars = $this->config->options;
+        $this->template_dirs = array($this->config->options['themes_dir'].DS.$this->config->options['theme']);
 
         /** Create the event dispatcher **/
         $this->dispatcher = new EventDispatcher();
 
         /** Bootstrap plugins **/
-        $this->pluginManager = new PluginManager();
+        $this->pluginManager = new PluginManager($this->config);
         $this->pluginManager->loadPlugins();
         $this->pluginManager->addListeners($this->dispatcher);
     }
@@ -103,8 +103,8 @@ class Ghastly {
          * Configure the twig environment
          */
         $config = array('autoescape'=>false);
-        if($this->options['cache']) {
-            $config['cache'] = $this->options['themes_dir'].'/cache';
+        if($this->config->options['cache']) {
+            $config['cache'] = $this->config->options['themes_dir'].'/cache';
         }
         
         $loader = new \Twig_Loader_Filesystem($this->template_dirs);

@@ -30,12 +30,10 @@ class DirectoryPostRepository implements PostRepositoryInterface {
      */
     protected $entities;
 
-    public function __construct()
+    public function __construct(Config $config)
     {
-        $options = Config::getInstance()->options;
-
-        $this->directory = $options['posts_dir'];
-        $this->file_extension = $options['post_file_extension'];
+        $this->directory = $config->options['posts_dir'];
+        $this->file_extension = $config->options['post_file_extension'];
     }
 
 
