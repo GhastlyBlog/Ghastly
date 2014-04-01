@@ -4,9 +4,9 @@ namespace Ghastly\Config;
 
 class Config {
 
-    public $options = array();
+    public $options;
 
-    public function __construct($options) 
+    public function __construct($options=[]) 
     {
         $defaults = array(
             'blog_title' => 'Ghastly',
@@ -19,7 +19,8 @@ class Config {
             'plugins_dir' => 'plugins',
             'plugins' => array(),
             'cache' => false,
-            'posts_per_page' => 5
+            'posts_per_page' => 5,
+            'post_file_extension'=>'md'
         );
 
         $this->options = array_merge($defaults, $options);

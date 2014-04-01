@@ -12,6 +12,8 @@
         "twig/twig" : "1.15.*@dev",
         "klein/klein" : "2.0.*",
         "symfony/event-dispatcher" : "2.4.2",
+        "phpunit/phpunit" : "*",
+        
         "ghastly/archive" : "dev-master@dev",
         "ghastly/spooky" : "dev-master@dev"
     },
