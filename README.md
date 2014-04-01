@@ -150,4 +150,4 @@ Your plugin must be in a repository and it must contain a `composer.json` file t
 
 Bring on the pull requests. I'm open to your ideas and suggestions. If you want to be very active, I can add you to the team.
 
-Unit tests exist in `Ghastly\Tests`. To run them, execute `vendor/bin/phpunit`.
+Unit tests exist in `Ghastly/Tests`. To run them, execute `vendor/bin/phpunit`.
