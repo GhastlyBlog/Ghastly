@@ -17,7 +17,7 @@ class PostParser implements Parsable{
 		$slug = $this->_parseSlug($inputFile);
 		$date = $this->_parseDate($inputFile);
 		$summary = isset($front_matter['summary']) ? $front_matter['summary'] : $this->_parseSummary($content);
-		$tags = isset($front_matter['tags']) ? explode(',', $front_matter['tags']) : [];
+		$tags = isset($front_matter['tags']) ? array_map('trim',explode(',', $front_matter['tags'])) : [];
 
 		$post = new Post();
 		$post->setTitle($front_matter['title']);

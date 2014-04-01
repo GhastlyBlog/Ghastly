@@ -13,7 +13,7 @@ class Post {
 
 	public function addTag($tag)
 	{
-		array_push($this->tags, $tag);
+		array_push($this->tags, trim($tag));
 	}
 
 	/** Getters and Setters **/
