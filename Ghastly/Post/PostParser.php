@@ -5,7 +5,7 @@ namespace Ghastly\Post;
 use \Michelf\Markdown;
 
 
-class PostParser {
+class PostParser implements Parsable{
 
 	public function parse($inputFile)
 	{
