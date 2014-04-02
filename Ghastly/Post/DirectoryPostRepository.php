@@ -42,6 +42,8 @@ class DirectoryPostRepository implements PostRepositoryInterface {
      */
     public function findAll()
     {
+        $posts = [];
+
         // Loop over every file in the data directory
         foreach(new \DirectoryIterator($this->directory) as $file)
         {
@@ -51,8 +53,6 @@ class DirectoryPostRepository implements PostRepositoryInterface {
             // Get the filename of the file
             $filename = $file->getBasename('.'.$this->file_extension);
             
-            $posts = [];
-
             // Build post
             $posts[] = array(
                 'filename'=> $filename, 
