@@ -9,7 +9,7 @@ Ghastly is a markdown blog with a Ghost-like theme. You can extend Ghastly with 
 
 ## Installation
 
-Clone the repository, run `composer install` and edit `config.php`. That's it. If you're installing in a sub directory, add `RewriteBase /path/to/dir` to `.htaccess`.
+Clone the repository, run `composer install` and edit `config.php`. That's it. If you're installing in a sub directory, add `RewriteBase /path/to/dir` to `.htaccess`. Ghastly requires PHP 5.4+.
 
 ## Posting
 
