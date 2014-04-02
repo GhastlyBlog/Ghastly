@@ -6,7 +6,7 @@
  * Change the options below as is needed
  */
 
-\Ghastly\Config\Config::getInstance(array(
+$global_config = array(
 
 	/**
 	 * The url of your blog goes here (without a trailing slash)
@@ -90,4 +90,4 @@
 	 */
 	'cache' => false
 
-));
+);
