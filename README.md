@@ -1,7 +1,7 @@
 # Ghastly
 -----
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/badges/quality-score.png?s=f16db34a4f271b1188d2197a50fa076a2f8edcb7)](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/badges/quality-score.png?s=f16db34a4f271b1188d2197a50fa076a2f8edcb7)](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/) [![Code Coverage](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/badges/coverage.png?s=fac6888decf6ae23b9ae00c01895d7ae34249db7)](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/)
 
 Ghastly is a markdown blog with a Ghost-like theme. You can extend Ghastly with custom plugins and themes.
 
