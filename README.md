@@ -1,6 +1,8 @@
 # Ghastly
 -----
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/badges/quality-score.png?s=f16db34a4f271b1188d2197a50fa076a2f8edcb7)](https://scrutinizer-ci.com/g/GhastlyBlog/Ghastly/)
+
 Ghastly is a markdown blog with a Ghost-like theme. You can extend Ghastly with custom plugins and themes.
 
 ![ProjectImage](http://ghastlyblog.github.io/Ghastly/ghastly.png)
