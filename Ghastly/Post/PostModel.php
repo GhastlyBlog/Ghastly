@@ -7,6 +7,7 @@ use \Michelf\Markdown;
 class PostModel {
 
     protected $db;
+    protected $parser;
 
     public function __construct(PostRepositoryInterface $db, PostParser $parser){
         $this->db = $db;

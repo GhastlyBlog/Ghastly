@@ -25,6 +25,7 @@ class Ghastly {
     protected $template_path;
     protected $dispatcher;
     protected $postController;
+    protected $pluginManager;
 
     public function __construct($config)
     {
@@ -66,7 +67,7 @@ class Ghastly {
         /**
          * Ghastly's built-in routes
          */
-        $router->respond('/', function($request){
+        $router->respond('/', function(){
             $this->postController->index($this);
         });
 
@@ -74,7 +75,7 @@ class Ghastly {
             $this->postController->single($this, $request);
         });
         
-        $router->respond('404', function($request){
+        $router->respond('404', function(){
             $this->template = '404.html';
         });
 

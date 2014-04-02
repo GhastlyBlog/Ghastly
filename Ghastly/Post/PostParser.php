@@ -9,7 +9,6 @@ class PostParser implements Parsable{
 
 	public function parse($inputFile)
 	{
-		$inputFile = $inputFile;
 		$splitFile = $this->_splitFile($inputFile);
 
 		$front_matter = $this->_parseFrontMatter($splitFile);

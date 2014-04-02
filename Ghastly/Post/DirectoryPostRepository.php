@@ -50,6 +50,8 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
             // Get the filename of the file
             $filename = $file->getBasename('.'.$this->file_extension);
+            
+            $posts = [];
 
             // Build post
             $posts[] = array(

@@ -7,6 +7,8 @@ use Ghastly\Config\Config;
 
 class DirectoryPostRepositoryTest extends \PHPUnit_Framework_TestCase
 {
+    public $cfg;
+
 	public function setUp()
 	{
 		if(! defined('DS')) { define('DS', DIRECTORY_SEPARATOR); };

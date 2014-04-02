@@ -6,6 +6,8 @@ use Ghastly\Post\PostParser;
 
 class PostParserTest extends \PHPUnit_Framework_TestCase
 {
+    public $inputFile;
+
 	public function setUp()
 	{
 $testPost = <<<EOT
