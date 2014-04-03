@@ -4,51 +4,49 @@ namespace Ghastly;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Klein\Klein;
-
-use Ghastly\Event\PreRenderEvent;
 use Ghastly\Event\PreRouteEvent;
+use Ghastly\Event\PreRenderEvent;
 use Ghastly\Config\Config;
 use Ghastly\Plugin\PluginManager;
 use Ghastly\Post\PostController;
 use Ghastly\Post\PostModel;
 use Ghastly\Post\DirectoryPostRepository;
 use Ghastly\Post\PostParser;
+use Ghastly\Template\Renderer;
 
 class Ghastly {
 
-    public $template;
-    public $template_vars;
-    public $template_dirs;
-    public $postModel;
-
-    protected $config;
-    protected $template_path;
-    protected $dispatcher;
-    protected $postController;
-    protected $pluginManager;
+    private $config;
+    private $dispatcher;
+    private $postController;
+    private $pluginManager;
+    private $renderer;
+    private $router;
 
     public function __construct($config)
     {
         /** Initialize Configuration Options **/
         $this->config = new Config($config);
 
-        /** Instantiate Post Controller **/
-        $this->postController = new PostController($this->config);
-        
-        /** Instantiate Post Model **/
+        /** Create the template renderer **/
+        $this->renderer = new Renderer($this->config);
+
+         /** Instantiate Post Model **/
         $this->postModel = new PostModel(new DirectoryPostRepository($this->config), new PostParser());
 
-        /** Let template vars include all of the config options **/
-        $this->template_vars = $this->config->options;
-        $this->template_dirs = array($this->config->options['themes_dir'].DS.$this->config->options['theme']);
-
+        /** Instantiate Post Controller **/
+        $this->postController = new PostController($this->config, $this->postModel, $this->renderer);
+       
         /** Create the event dispatcher **/
         $this->dispatcher = new EventDispatcher();
 
         /** Bootstrap plugins **/
-        $this->pluginManager = new PluginManager($this->config);
+        $this->pluginManager = new PluginManager($this->config, $this->dispatcher);
         $this->pluginManager->loadPlugins();
         $this->pluginManager->addListeners($this->dispatcher);
+
+        /** Instantiate new router **/
+        $this->router = new Klein();
     }
 
     /**
@@ -56,65 +54,42 @@ class Ghastly {
      */
     public function run() 
     {
-        $router = new Klein();
-
         /**
          * Dispatch our route event so plugins can setup routes
          */
-        $event = new PreRouteEvent($this, $router);
+        $event = new PreRouteEvent($this->router, $this->renderer, $this->dispatcher, $this->postModel);
         $this->dispatcher->dispatch('Ghastly.PreRoute', $event);
 
         /**
          * Ghastly's built-in routes
          */
-        $router->respond('/', function(){
-            $this->postController->index($this);
+        $this->router->respond('/', function(){
+            $this->postController->index();
         });
 
-        $router->respond('/post/[:id]', function($request){
-            $this->postController->single($this, $request);
+        $this->router->respond('/post/[:id]', function($request){
+            $this->postController->single($request);
         });
         
-        $router->respond('404', function(){
+        $this->router->respond('404', function(){
             $this->template = '404.html';
         });
 
-        $router->dispatch();        
+        $this->router->dispatch();        
 
-        /**
-         * Render the template to the page
-         */
-        $this->_render(); 
-    }
-    
-    private function _render()
-    {
         /**
          * If a plugin provides or extends
          * any templates, it's expected to push them onto $this->template_dirs
          *
-         * Dispatch PreRenderEvent so that plugins have a chance to modify
-         * or inject template vars and templates because it didn't make 
-         * sense for them to respond to a route.
+         * Let plugins modify template variables after the routes have executed
          */
-        $event = new PreRenderEvent($this);
+        $event = new PreRenderEvent($this->renderer, $this->postModel);
         $this->dispatcher->dispatch('Ghastly.PreRender', $event);
 
         /**
-         * Configure the twig environment
+         * Render the template to the page
          */
-        $config = array('autoescape'=>false);
-        if($this->config->options['cache']) {
-            $config['cache'] = $this->config->options['themes_dir'].'/cache';
-        }
-        
-        $loader = new \Twig_Loader_Filesystem($this->template_dirs);
-        $twig = new \Twig_Environment($loader, $config);
-
-        /**
-         * Set the template and render compiled template to screen
-         */
-        $layout = $twig->loadTemplate($this->template);
-        echo $layout->render($this->template_vars);
+        $this->renderer->render($this);
     }
+
 }

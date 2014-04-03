@@ -3,9 +3,11 @@
 namespace Ghastly\Event;
 
 class PreRenderEvent extends \Symfony\Component\EventDispatcher\Event {
-    public $Ghastly;
+    public $renderer;
+    public $postModel;
 
-    public function __construct($Ghastly){
-        $this->Ghastly = $Ghastly;
+    public function __construct($renderer, $postModel){
+        $this->renderer = $renderer;
+        $this->postModel = $postModel;
     }
 }

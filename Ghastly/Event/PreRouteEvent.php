@@ -3,11 +3,15 @@
 namespace Ghastly\Event;
 
 class PreRouteEvent extends \Symfony\Component\EventDispatcher\Event {
-    public $Ghastly;
     public $router;
+    public $renderer;
+    public $dispatcher;
+    public $postModel;
 
-    public function __construct($Ghastly, $router){
-        $this->Ghastly = $Ghastly;
+    public function __construct($router, $renderer, $dispatcher, $postModel){
         $this->router = $router;
+        $this->renderer = $renderer;
+        $this->dispatcher = $dispatcher;
+        $this->postModel = $postModel;
     }
 }

@@ -2,6 +2,7 @@
 namespace Ghastly\Plugin;
 
 use Ghastly\Config\Config;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class PluginManager {
 
@@ -10,23 +11,25 @@ class PluginManager {
     /**
      * The directory where the plugin directories are stored
      */
-    public $plugins_dir;
+    private $plugins_dir;
 
     /**
      * An array of loaded plugins
      */
-    public $plugins = array();
+    private $plugins = array();
 
     /**
      * An array of enabled plugins
      */
-    public $enabled_plugins = array();
+    private $enabled_plugins = array();
 
-    public $config;
+    private $config;
+    private $dispatcher;
 
-    public function __construct(Config $config) 
+    public function __construct(Config $config, EventDispatcher $dispatcher) 
     {
         $this->config = $config;
+        $this->dispatcher = $dispatcher;
         $this->plugins_dir = $this->config->options['plugins_dir'];
         $this->enabled_plugins = $this->config->options['plugins'];
     }
@@ -50,7 +53,7 @@ class PluginManager {
             $events = $plugin->events;
 
             foreach($events as $event) {
-                $dispatcher->AddListener($event['event'], array($plugin, $event['func']));
+                $this->dispatcher->AddListener($event['event'], array($plugin, $event['func']));
             }
         }
     }
