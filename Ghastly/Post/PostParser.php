@@ -4,9 +4,16 @@ namespace Ghastly\Post;
 
 use \Michelf\Markdown;
 
-
+/** 
+ * Can parse a post file 
+ */
 class PostParser implements Parsable{
-
+    
+    /**
+     * Parse the inputfile
+     * @param file $inputFIle
+     * @return Post
+     */
 	public function parse($inputFile)
 	{
 		$splitFile = $this->_splitFile($inputFile);
@@ -29,11 +36,21 @@ class PostParser implements Parsable{
 		return $post;
 	}
 
+    /**
+     * Split a file by its front matter
+     * @param file $inputFile
+     * @return array
+     */
 	private function _splitFile($inputFile)
 	{
 		return explode('-----', $inputFile['content']);
 	}
 
+    /**
+     * Parse the front matter into a key/value array
+     * @param file $splitFIle a file already split from _splitFile
+     * @return array
+     */
 	private function _parseFrontMatter($splitFile)
 	{
 		$ret = [];
@@ -50,21 +67,41 @@ class PostParser implements Parsable{
         return $ret;
 	}
 
+    /**
+     * Parse the Markdown content
+     * @param file $splitFile
+     * @return string
+     */
 	private function _parseContent($splitFile)
 	{
 		return Markdown::defaultTransform($splitFile[2]);
 	}
 
+    /**
+     * Parse a slug
+     * @param file $inputFile
+     * @return string
+     */
 	private function _parseSlug($inputFile)
 	{
 		return strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($inputFile['filename'])));
 	}
 
+    /**
+     * Parse a date
+     * @param file $inputFile
+     * @return string
+     */
 	private function _parseDate($inputFile)
 	{
 		return $inputFile['date']->format('Y-m-d');
 	}
 
+    /**
+     * Parse a summary from front matter or content
+     * @param string $content
+     * @return string
+     */
 	private function _parseSummary($content)
 	{
 		$summary = '';

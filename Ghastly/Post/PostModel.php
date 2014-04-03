@@ -6,14 +6,32 @@ use \Michelf\Markdown;
 
 class PostModel {
 
-    protected $db;
-    protected $parser;
+    /**
+     * A database of posts
+     * @var PostRepositoryInterface
+     */
+    private $db;
 
-    public function __construct(PostRepositoryInterface $db, PostParser $parser){
+    /**
+     * An object that can parse posts
+     * @var Parsable
+     */
+    private $parser;
+
+    /**
+     * @param PostRepositoryInterface $db
+     * @param Parsable $parser
+     */
+    public function __construct(PostRepositoryInterface $db, Parsable  $parser){
         $this->db = $db;
         $this->parser = $parser;
     }
 
+    /**
+     * Will find all posts, can optionally specify a limit
+     * @param int $limit Defaults to 0
+     * @return array Array of Posts
+     */
     public function findAll($limit=0)
     {
         $posts = $this->db->findAll()->limit($limit)->getResults();
@@ -26,6 +44,11 @@ class PostModel {
         return $posts;
     }
 
+    /**
+     * Just like findAll() but will not retrieve the file contents
+     * @param int $limit Defaults to 0
+     * @return array Array of posts without content
+     */
     public function findAllHeaders($limit=0)
     {
         $posts = $this->db->findAll()->limit($limit)->getResults(true);
@@ -33,6 +56,11 @@ class PostModel {
         return $posts;
     }
 
+    /**
+     * Returns a single post with content
+     * @param int $id The post filename/id
+     * @return Post
+     */
     public function getPostById($id)
     {
         $post = $this->db->find($id)->getResult();

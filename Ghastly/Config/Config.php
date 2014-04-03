@@ -2,10 +2,21 @@
 
 namespace Ghastly\Config;
 
+/**
+ * Reads a configuration file
+ */
 class Config {
 
+    /**
+     * The configuration options and their values
+     * @var array
+     */
     public $options;
 
+    /**
+     * Specify an optional array of options to override the defaults
+     * @param array $options The overriding options array
+     */
     public function __construct($options=[]) 
     {
         $defaults = array(
@@ -23,6 +34,7 @@ class Config {
             'post_file_extension'=>'md'
         );
 
+        // Override the defined defaults with the provided options
         $this->options = array_merge($defaults, $options);
     }
 

@@ -14,15 +14,51 @@ use Ghastly\Post\DirectoryPostRepository;
 use Ghastly\Post\PostParser;
 use Ghastly\Template\Renderer;
 
+/**
+ * The Ghastly class serves as the applications main point of entry
+ */
 class Ghastly {
-
+    
+    /**
+     * The Config object created from config.php
+     * @var Config
+     */
     private $config;
+
+    /**
+     * The event dispatcher
+     * @var EventDispatcher
+     */
     private $dispatcher;
+
+    /**
+     * Built in controller to serve the default routes
+     * @var PostController
+     */
     private $postController;
+
+    /**
+     * Manages the applications plugins
+     * @var PluginManager
+     */
     private $pluginManager;
+
+    /**
+     * Handles template vars, directories, and rendering
+     * @var Renderer
+     */
     private $renderer;
+
+    /**
+     * Performs routing for the application and its plugins
+     * @var Klein
+     */
     private $router;
 
+    /**
+     * Instantiates all objects necessary for runtime
+     * @param array $config An array from the configuration script 
+     */
     public function __construct($config)
     {
         /** Initialize Configuration Options **/
@@ -31,7 +67,7 @@ class Ghastly {
         /** Create the template renderer **/
         $this->renderer = new Renderer($this->config);
 
-         /** Instantiate Post Model **/
+        /** Instantiate Post Model **/
         $this->postModel = new PostModel(new DirectoryPostRepository($this->config), new PostParser());
 
         /** Instantiate Post Controller **/
@@ -50,14 +86,15 @@ class Ghastly {
     }
 
     /**
-     * Ghastly expects that the controllers will set $this->template.
+     * Run the Ghastly app and echo the rendered template
+     * @return void
      */
     public function run() 
     {
         /**
          * Dispatch our route event so plugins can setup routes
          */
-        $event = new PreRouteEvent($this->router, $this->renderer, $this->dispatcher, $this->postModel);
+        $event = new PreRouteEvent($this->router, $this->renderer, $this->postModel);
         $this->dispatcher->dispatch('Ghastly.PreRoute', $event);
 
         /**
@@ -78,9 +115,6 @@ class Ghastly {
         $this->router->dispatch();        
 
         /**
-         * If a plugin provides or extends
-         * any templates, it's expected to push them onto $this->template_dirs
-         *
          * Let plugins modify template variables after the routes have executed
          */
         $event = new PreRenderEvent($this->renderer, $this->postModel);
@@ -89,7 +123,7 @@ class Ghastly {
         /**
          * Render the template to the page
          */
-        $this->renderer->render($this);
+        $this->renderer->render();
     }
 
 }

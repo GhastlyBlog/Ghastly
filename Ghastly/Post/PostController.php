@@ -6,12 +6,34 @@ use Ghastly\Config\Config;
 use Ghastly\Post\PostModel;
 use Ghastly\Template\Renderer;
 
+/**
+ * Controller for built-in Ghastly routes for posts
+ */
 class PostController {
 
+    /**
+     * A Ghastly Config
+     * @var Config
+     */
     private $config;
+
+    /**
+     * A model for querying posts
+     * @var PostModel
+     */
     private $postModel;
+
+    /**
+     * The template renderer
+     * @var Renderer
+     */
     private $renderer;
 
+    /**
+     * @param Config $config
+     * @param PostModel $postModel
+     * @param Renderer $renderer
+     */
     public function __construct(Config $config, PostModel $postModel, Renderer $renderer){
         $this->config = $config;
         $this->postModel = $postModel;
@@ -30,6 +52,7 @@ class PostController {
 
     /**
      * Show a single post
+     * @param Request $request
      */
     public function single($request) {
         $post = $this->postModel->getPostById($request->id);

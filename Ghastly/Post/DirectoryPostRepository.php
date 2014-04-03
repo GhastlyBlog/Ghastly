@@ -11,25 +11,33 @@ use Ghastly\Config\Config;
  * Entire file should match ([0-9]{4}-[0-9]{2}-[0-9]{2})[A-Za-z0-9-]+
  *
  * This classes methods are chainable.
- *  $repo->findAll->limit(5)->getResults();
+ * <code>
+ * $repo->findAll->limit(5)->getResults();
+ * </code>
  */
 class DirectoryPostRepository implements PostRepositoryInterface {
 
     /**
      * The directory all of the entities are located in 
+     * @var string
      */
-    protected $directory;
+    private $directory;
 
     /**
      * The file extension of the entities
+     * @var string
      */
-    protected $file_extension;
+    private $file_extension;
 
     /**
      * A collection of files
+     * @var array
      */
-    protected $entities;
+    private $entities;
 
+    /**
+     * @param Config $config
+     */
     public function __construct(Config $config)
     {
         $this->directory = $config->options['posts_dir'];
@@ -39,6 +47,7 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
     /**
      * Grabs all files in the directory sorted by date desc
+     * @return DirectoryPostRepository
      */
     public function findAll()
     {
@@ -68,6 +77,7 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
     /** 
      * Returns a single file / date from a filename
+     * @return DirectoryPostRepository
      */
     public function find($filename)
     {
@@ -84,6 +94,11 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         return $this;
     }
 
+    /**
+     * Limits the $entities
+     * @param int $limit Will reduce $entities to only $limit
+     * @return DirectoryPostRepository
+     */
     public function limit($limit)
     {
         if($limit && $limit !== 0) { 
@@ -93,6 +108,11 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         return $this;
     }
 
+    /**
+     * Will return the file descriptor or the actual file
+     * @param bool $headers_only if true, will only return descriptor of file
+     * @return array
+     */
     public function getResults($headers_only = false)
     {
         if(! $headers_only)
@@ -105,6 +125,10 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         return $this->entities;
     }
 
+    /**
+     * Return the content of a file
+     * @return array
+     */
     public function getResult()
     {
         $this->entities[0]['content'] = file_get_contents($this->directory.DS.$this->entities[0]['filename'].'.'.$this->file_extension);
@@ -112,17 +136,32 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         return $this->entities[0];
     }
 
+    /**
+     * Gets a date from a filename in the format Y-m-d-name-of-file
+     * @param string $filename The name of the file to find a date in
+     * @return DateTime
+     */
     private function _getDateFromFilename($filename)
     {
         preg_match("/.*([0-9]{4}-[0-9]{2}-[0-9]{2}).*/", $filename, $matches); 
         return isset($matches[1]) ? new \DateTime($matches[1]) : null;
     }
 
+    /**
+     * Will remove slashes from a filename
+     * @param string $filename The filename to remove slashes from
+     * @return string
+     */
     private function _escape_filename($filename)
     {
         return str_replace('/', '', $filename);
     }
 
+    /**
+     * Sorts an array of posts by date descending
+     * @param array $posts The posts to sort
+     * @return array
+     */
     private function _sortByDateDesc($posts)
     {
         usort($posts, function($a, $b){
