@@ -22,7 +22,7 @@ class PostModel {
      * @param PostRepositoryInterface $db
      * @param Parsable $parser
      */
-    public function __construct(PostRepositoryInterface $db, Parsable  $parser){
+    public function __construct(PostRepositoryInterface $db, Parsable $parser){
         $this->db = $db;
         $this->parser = $parser;
     }

@@ -86,4 +86,13 @@ class PluginManager {
         }
     }
 
+    /**
+     * Returns the array of plugin objects
+     * @return array
+     */
+    public function getLoadedPlugins()
+    {
+        return $this->plugins;
+    }
+
 }
