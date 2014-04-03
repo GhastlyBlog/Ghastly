@@ -10,7 +10,7 @@ class PreRenderEvent extends \Symfony\Component\EventDispatcher\Event {
     /**
      * The renderer exposes methods to modify template variables and
      * directories
-     * @var Renderer
+     * @var Ghastly\Template\Renderer
      */
     public $renderer;
 
@@ -22,7 +22,7 @@ class PreRenderEvent extends \Symfony\Component\EventDispatcher\Event {
 
     /**
      * A PreRender event must be given a Renderer and PostModel
-     * @param Renderer $renderer 
+     * @param Ghastly\Template\Renderer $renderer 
      * @param PostModel $postModel 
      */
     public function __construct($renderer, $postModel){

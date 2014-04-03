@@ -17,7 +17,7 @@ class PreRouteEvent extends \Symfony\Component\EventDispatcher\Event {
     /**
      * The renderer exposes the methods necessary to modify template
      * variables and directories
-     * @var Renderer;
+     * @var Ghastly\Template\Renderer;
      */
     public $renderer;
     

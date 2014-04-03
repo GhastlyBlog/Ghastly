@@ -50,6 +50,12 @@ class Ghastly {
     private $renderer;
 
     /**
+     * Can query for posts
+     * @var PostModel
+     */
+    private $postModel;
+
+    /**
      * Performs routing for the application and its plugins
      * @var Klein
      */
@@ -109,7 +115,7 @@ class Ghastly {
         });
         
         $this->router->respond('404', function(){
-            $this->template = '404.html';
+            $this->renderer->setTemplate('404.html');
         });
 
         $this->router->dispatch();        

@@ -14,8 +14,8 @@ class Post {
 	private $title;
 
     /**
-     * The date of a post
-     * @var DateTime
+     * The formatted date of a post
+     * @var string
      */
 	private $date;
 
@@ -63,7 +63,7 @@ class Post {
 	}
 
     /**
-     * @return DateTime
+     * @return string
      */
 	public function getDate() 
 	{

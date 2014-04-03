@@ -71,10 +71,9 @@ class PluginManager {
 
     /**
      * Add plugin listeners to the dispatcher
-     * @param EventDispatcher $dispatcher
      * @return void
      */
-    public function addListeners($dispatcher)
+    public function addListeners()
     {
         foreach($this->plugins as $plugin) {
             // Plugins should have an events array

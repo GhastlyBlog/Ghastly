@@ -48,7 +48,7 @@ class PostParser implements Parsable{
 
     /**
      * Parse the front matter into a key/value array
-     * @param file $splitFIle a file already split from _splitFile
+     * @param array $splitFIle a file already split from _splitFile
      * @return array
      */
 	private function _parseFrontMatter($splitFile)
@@ -69,7 +69,7 @@ class PostParser implements Parsable{
 
     /**
      * Parse the Markdown content
-     * @param file $splitFile
+     * @param array $splitFile
      * @return string
      */
 	private function _parseContent($splitFile)
