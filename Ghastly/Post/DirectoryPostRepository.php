@@ -77,6 +77,7 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
     /** 
      * Returns a single file / date from a filename
+     * @param string $filename
      * @return DirectoryPostRepository
      */
     public function find($filename)
@@ -127,7 +128,7 @@ class DirectoryPostRepository implements PostRepositoryInterface {
 
     /**
      * Return the content of a file
-     * @return array
+     * @return Post 
      */
     public function getResult()
     {

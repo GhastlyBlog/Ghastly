@@ -111,7 +111,7 @@ class Post {
 	}
 
     /**
-     * @param DateTime $date
+     * @param string $date a formatted date string
      */
 	public function setDate($date) 
 	{
