@@ -38,12 +38,6 @@ $ghastly_config = array(
 	 */
 	'theme' => 'spooky',
 
-	/**
-	 * A file in images_dir used for background of blog banner in themes
-	 * that support it. Set to '' for none.
-	 */
-	'banner_image' => 'background.png',
-
     /**
      * The plugins you would like to enable
      */
