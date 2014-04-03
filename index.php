@@ -8,7 +8,13 @@ require 'vendor/autoload.php';
 /** 
  * Include the configuration file
  */
-require 'config.php';
+
+if( !file_exists('config.php')) {
+	die('You forgot to rename config.sample.php to config.php');
+}
+
+require('config.php');
+
 
 /**
  * Constant definitions 
