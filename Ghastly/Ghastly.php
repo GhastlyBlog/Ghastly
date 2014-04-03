@@ -85,7 +85,7 @@ class Ghastly {
         /** Bootstrap plugins **/
         $this->pluginManager = new PluginManager($this->config, $this->dispatcher);
         $this->pluginManager->loadPlugins();
-        $this->pluginManager->addListeners($this->dispatcher);
+        $this->pluginManager->addListeners();
 
         /** Instantiate new router **/
         $this->router = new Klein();

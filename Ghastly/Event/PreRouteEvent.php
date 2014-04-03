@@ -17,21 +17,21 @@ class PreRouteEvent extends \Symfony\Component\EventDispatcher\Event {
     /**
      * The renderer exposes the methods necessary to modify template
      * variables and directories
-     * @var Ghastly\Template\Renderer;
+     * @var \Ghastly\Template\Renderer;
      */
     public $renderer;
     
     /**
      * The postModel allows plugins to query for posts
-     * @var PostModel
+     * @var \Ghastly\Post\PostModel
      */
     public $postModel;
 
     /**
      * A PreRoute event requires a Router, Renderer, and PostModel
-     * @param Router $router
-     * @param Renderer $renderer
-     * @param PostModel $postModel
+     * @param Klein $router
+     * @param \Ghastly\Template\Renderer $renderer
+     * @param \Ghastly\Post\PostModel $postModel
      */
     public function __construct($router, $renderer, $postModel){
         $this->router = $router;
