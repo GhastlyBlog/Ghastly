@@ -6,7 +6,7 @@
  * Change the options below as is needed
  */
 
-$global_config = array(
+$ghastly_config = array(
 
 	/**
 	 * The url of your blog goes here (without a trailing slash)
