@@ -43,7 +43,7 @@ class PostParser implements Parsable{
      */
 	private function _splitFile($inputFile)
 	{
-		return explode('-----', $inputFile['content']);
+		return explode('---', $inputFile['content']);
 	}
 
     /**

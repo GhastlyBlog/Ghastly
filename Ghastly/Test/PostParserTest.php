@@ -11,11 +11,11 @@ class PostParserTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 $testPost = <<<EOT
------
+---
 title: My Post Title
 summary: A summary
 tags: tag1, tag2
------
+---
 
 It was a dark and stormy night...
 EOT;
