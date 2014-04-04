@@ -17,11 +17,11 @@ Create posts in `posts/` in the format of `2014-12-28-my-blog-post-title.md`.
 
 A post should have a jekyll-like front matter. An example post would look like:
 
-    -----
+    ---
     title: My blog post title!
     summary: A short summary about this post
     tags: something, stuff
-    -----
+    ---
 
     Lorem ipsum dolor sit amet...
 
@@ -61,7 +61,7 @@ All of the options in `config.php` are available as template variables.
 
 ### Publishing your theme for others
 
-Your theme must be in a repository and it must contain a `composer.json` file that references a type of `ghastly-theme` and must require  `ghastly/theme-installer` as a dependency. Your repository must also be available on [Packagist](http://packagist.org)
+Your theme must be in a repository and it must contain a `composer.json` file that references a type of `ghastly-theme` and must require  `ghastly/theme-installer` as a dependency. Your repository must also be available on [Packagist](http://packagist.org). If your theme requires any plugins, list those as dependencies as well.
 
 ```javascript
 {
@@ -70,7 +70,8 @@ Your theme must be in a repository and it must contain a `composer.json` file th
     "type" : "ghastly-theme",
     "license" : "UNLICENSE",
     "require" : {
-        "ghastly/theme-installer" : "dev-master"
+        "ghastly/theme-installer" : "dev-master",
+        "ghastly/archive" : "dev-master"
     }
 }
 ````
@@ -105,6 +106,8 @@ Note that all events are passed an instance of $Ghastly.
 
 ##### Ghastly.PreRoute
 
+Exposes: $router, $postModel, $renderer
+
 Your Ghastly plugin can respond to routes by subscribing to this event. Example:
 
 ```php
@@ -119,8 +122,8 @@ class Hello extends \Ghastly\Plugin\Plugin {
     
     public function onPreRoute(\Ghastly\Event\PreRouteEvent $event){
         $event->router->respond('/some_route', function() use ($event){
-            $this->Ghastly->template_vars['greeting'] = 'Hello World!'; 
-            $this->Ghastly->template = 'hello_world.html';
+            $event->renderer->setTemplateVar('greeting', 'Hello World!'); 
+            $event->renderer->setTemplate('hello_world.html');
         });
     }
 }
@@ -129,8 +132,29 @@ The `hello_world.html` template now has `{{ greeting }}` available to it when Gh
 
 ##### Ghastly.PreRender
 
+Exposes: $renderer, $postModel
+
 This event lets you modify the Ghastly instance on any route after it and all plugins have responded to the route.
 
+### Event Objects
+
+The $event object passed to your event function contains several useful objects:
+
+##### $renderer
+
+$renderer->addTemplateDir($str) - add a directory to the renderer to search for additional templates  
+$renderer->addTemplateVar($key,$val) - add a template variable  
+$renderer->setTemplate($str) - set the template ghastly will render  
+
+##### $postModel
+
+$postModel->findAll($limit) - will retrieve $limit posts and parse them
+$postModel->findAllHeaders($limit) - will retrieve $limit posts but without getting the file contents
+$postModel->getPostById($id) - will retrieve a single parsed post, $id should be a slug
+
+##### $router
+
+A [Klein](http://github.com/chriso/klein.php) instance. See their documentation. Use it for responding to new routes.
 
 ### Publishing your plugin for others
 
