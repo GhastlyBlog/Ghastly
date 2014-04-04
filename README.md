@@ -148,9 +148,9 @@ $renderer->setTemplate($str) - set the template ghastly will render
 
 ##### $postModel
 
-$postModel->findAll($limit) - will retrieve $limit posts and parse them
-$postModel->findAllHeaders($limit) - will retrieve $limit posts but without getting the file contents
-$postModel->getPostById($id) - will retrieve a single parsed post, $id should be a slug
+$postModel->findAll($limit) - will retrieve $limit posts and parse them  
+$postModel->findAllHeaders($limit) - will retrieve $limit posts but without getting the file contents  
+$postModel->getPostById($id) - will retrieve a single parsed post, $id should be a slug  
 
 ##### $router
 
