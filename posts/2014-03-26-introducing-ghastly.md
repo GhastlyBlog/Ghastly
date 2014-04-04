@@ -13,7 +13,7 @@ Ghastly features a simple, responsive theme as well as archives and syntax funct
 
 - `git clone https://github.com/chrisgillis/Ghastly.git`
 - `composer install`
-- Edit `config.php` and upload files to your PHP 5.3+ host
+- Edit `config.php` and upload files to your PHP 5.4+ host
 
 <pre><code class="language-php">/**
  * Summon Ghastly
