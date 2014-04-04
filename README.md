@@ -9,7 +9,18 @@ Ghastly is a minimal static blog engine that emphasizes the use of themes and pl
 
 ## Installation
 
-Clone the repository, run `composer install` and edit `config.php`. That's it. If you're installing in a sub directory, add `RewriteBase /path/to/dir` to `.htaccess`. Ghastly requires PHP 5.4+.
+Ghastly requires PHP 5.4+.
+
+```bash
+git clone http://github.com/ghastlyblog/ghastly
+cd ghastly
+composer install
+cp config.sample.php config.php
+```
+
+Edit `config.php` and you're done.  
+
+If you're installing in a sub directory, add `RewriteBase /path/to/dir` to `.htaccess`. 
 
 ## Posting
 
