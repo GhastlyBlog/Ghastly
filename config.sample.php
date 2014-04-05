@@ -45,8 +45,8 @@ $ghastly_config = array(
 		'archive', 
 		'rss', 
 		'admin'=>array(
-			'username'=>'asdf',
-			'password'=>'fdsa'
+			'username'=>'myuser',
+			'password'=>'mypass'
 		)
 	),
 
