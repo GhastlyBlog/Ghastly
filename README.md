@@ -22,9 +22,11 @@ Edit `config.php` and you're done.
 
 If you're installing in a sub directory, add `RewriteBase /path/to/dir` to `.htaccess`. 
 
+Ghastly ships with the following plugins enabled: [Archive](http://github.com/ghastlyblog/archive), [Rss](http://github.com/ghastlyblog/rss), [Admin](http://github.com/ghastlyblog/admin).
+
 ## Posting
 
-Create posts in `posts/` in the format of `2014-12-28-my-blog-post-title.md`.
+Create posts in `posts/` in the format of `2014-12-28-my-blog-post-title.md`. If you have the  [Admin](http://github.com/ghastlyblog/admin) plugin installed, you can login at `http://localhost/admin`.
 
 A post should have a jekyll-like front matter. An example post would look like:
 
@@ -35,6 +37,7 @@ A post should have a jekyll-like front matter. An example post would look like:
     ---
 
     Lorem ipsum dolor sit amet...
+    
 
 ##### Front Matter Items
 
@@ -106,6 +109,8 @@ class Archive extends \Ghastly\Plugin\Plugin {
 }
 ```
 
+The plugin constructor can also accept a `$config` array if the user adds a configuration array for your plugin in their `config.php`.
+
 Add the plugin to the `plugins` config option in `config.php` to enable it.
 
 Event                 |Event Properties
@@ -134,6 +139,7 @@ class Hello extends \Ghastly\Plugin\Plugin {
     public function onPreRoute(\Ghastly\Event\PreRouteEvent $event){
         $event->router->respond('/some_route', function() use ($event){
             $event->renderer->setTemplateVar('greeting', 'Hello World!'); 
+            $event->renderer->addTemplateDir('plugins/hello');
             $event->renderer->setTemplate('hello_world.html');
         });
     }
@@ -187,4 +193,4 @@ Your plugin must be in a repository and it must contain a `composer.json` file t
 
 Bring on the pull requests. I'm open to your ideas and suggestions. If you want to be very active, I can add you to the team.
 
-Unit tests exist in `Ghastly/Tests`. To run them, execute `vendor/bin/phpunit`.
+Unit tests exist in `Ghastly/Test`. To run them, execute `vendor/bin/phpunit`.
