@@ -16,6 +16,8 @@ class PostParser implements Parsable{
      */
 	public function parse($inputFile)
 	{
+		$inputFile['content'] = $this->_fixLineEndings($inputFile['content']);
+
 		$splitFile = $this->_splitFile($inputFile);
 
 		$front_matter = $this->_parseFrontMatter($splitFile);
@@ -31,14 +33,26 @@ class PostParser implements Parsable{
 		$post->setSlug($slug);
 		$post->setTags($tags);
 		$post->setContent($content);
-		$post->setSummary($summary);
+		$post->setRawContent(trim($splitFile[2]));
+		$post->setSummary(strip_tags($summary));
 
 		return $post;
 	}
 
+	/**
+	 * Enforce linux line endings
+	 * @param string $str
+	 * @return string
+	 */
+	private function _fixLineEndings($str)
+	{
+		$str = str_replace(array("\r\n", "\n"), "\n", $str);
+		return $str;
+	}
+
     /**
      * Split a file by its front matter
-     * @param file $inputFile
+     * @param array $inputFile
      * @return array
      */
 	private function _splitFile($inputFile)
@@ -54,9 +68,9 @@ class PostParser implements Parsable{
 	private function _parseFrontMatter($splitFile)
 	{
 		$ret = [];
-		$front_matter = $splitFile[1];
+		$front_matter = trim($splitFile[1]);
 
-		$front_matter = explode(PHP_EOL, $front_matter);
+		$front_matter = explode("\n", $front_matter);
 		$front_matter = array_filter($front_matter, function($n){ return trim($n); });	
 		$front_matter = array_map(function($n){ return explode(':', $n); }, $front_matter);
 		
@@ -79,7 +93,7 @@ class PostParser implements Parsable{
 
     /**
      * Parse a slug
-     * @param file $inputFile
+     * @param array $inputFile
      * @return string
      */
 	private function _parseSlug($inputFile)
@@ -89,7 +103,7 @@ class PostParser implements Parsable{
 
     /**
      * Parse a date
-     * @param file $inputFile
+     * @param array $inputFile
      * @return string
      */
 	private function _parseDate($inputFile)

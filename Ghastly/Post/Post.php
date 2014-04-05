@@ -32,6 +32,12 @@ class Post {
 	private $tags;
 
     /**
+     * A posts raw content prior to parsing
+     * @var string
+     */
+    private $raw_content;
+
+    /**
      * A posts html content
      * @var string
      */
@@ -97,6 +103,14 @@ class Post {
     /**
      * @return string
      */
+    public function getRawContent()
+    {
+        return $this->raw_content;
+    }
+
+    /**
+     * @return string
+     */
 	public function getSummary()
 	{
 		return $this->summary;
@@ -141,6 +155,14 @@ class Post {
 	{
 		$this->content = $content;
 	}
+
+    /**
+     * @param string $raw_content
+     */
+    public function setRawContent($raw_content)
+    {
+        $this->raw_content = $raw_content;
+    }
 
     /**
      * @param string $summary
