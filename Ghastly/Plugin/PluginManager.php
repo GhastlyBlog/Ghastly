@@ -60,12 +60,14 @@ class PluginManager {
     public function loadPlugins()
     {
         // Loop over all of the plugins to enable and attempt to include them
-        foreach($this->enabled_plugins as $plugin) {
-            // Require the file
-            require_once($this->config->options['plugins_dir'].DS.$plugin.DS.$plugin.'.plugin.php');
+        foreach($this->enabled_plugins as $key => $plugin) {
+            $class_ident = (is_array($plugin)) ? $key : $plugin;
+            $config = (is_array($plugin)) ? $plugin : null;
+            
+            require_once($this->config->options['plugins_dir'].DS.$class_ident.DS.$class_ident.'.plugin.php');
 
             // Instantiate the plugin and add it to the array
-            $this->plugins[] = new $plugin();
+            $this->plugins[] = new $class_ident($config);
          } 
     }
 
