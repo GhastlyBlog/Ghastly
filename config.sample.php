@@ -41,7 +41,14 @@ $ghastly_config = array(
     /**
      * The plugins you would like to enable
      */
-    'plugins' => array('archive', 'rss'),
+    'plugins' => array(
+		'archive', 
+		'rss', 
+		'admin'=>array(
+			'username'=>'asdf',
+			'password'=>'fdsa'
+		)
+	),
 
 
 

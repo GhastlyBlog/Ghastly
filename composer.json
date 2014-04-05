@@ -14,7 +14,8 @@
         "symfony/event-dispatcher" : "2.4.2",
         "phpunit/phpunit" : "*",
         
-        "ghastly/spooky" : "dev-master@dev"
+        "ghastly/spooky" : "dev-master@dev",
+        "ghastly/admin" : "dev-master@dev"
     },
     "minimum-stability" : "dev"
 }
