@@ -24,6 +24,7 @@ class Config {
             'blog_author' => 'Ghastlyy Ghost',
             'blog_url' => 'http://localhost',
             'blog_description' => 'Another Ghastlyy blog',
+            'timezone' => 'Etc/UTC',
             'posts_dir' => 'posts',
             'theme' => 'Ghastlyy',
             'subdirectory' => false,

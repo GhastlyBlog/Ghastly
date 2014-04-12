@@ -1,5 +1,4 @@
 <?php
-date_default_timezone_set('America/New_York');
 /**
  * Include composers autoloader
  */
@@ -10,11 +9,19 @@ require 'vendor/autoload.php';
  */
 
 if( !file_exists('config.php')) {
-	die('You forgot to rename config.sample.php to config.php');
+	exit('You forgot to rename config.sample.php to config.php');
 }
 
 require('config.php');
 
+/**
+ * A timezone must be configured
+ */
+if(isset($ghastly_config['timezone'])) {
+    date_default_timezone_set($ghastly_config['timezone']);
+} else {
+    exit("You must set a timezone in config.php");
+}
 
 /**
  * Constant definitions 

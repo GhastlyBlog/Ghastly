@@ -50,6 +50,12 @@ $ghastly_config = array(
         )
     ),
 
+    /**
+     * Timezone setting (See: https://php.net/manual/en/timezones.php)
+     */
+    'timezone' => 'Etc/UTC',
+
+
 
     /**
      *  Only edit below if you know what you are doing 
