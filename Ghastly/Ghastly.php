@@ -4,6 +4,7 @@ namespace Ghastly;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Klein\Klein;
+use Klein\Request;
 use Ghastly\Event\PreRouteEvent;
 use Ghastly\Event\PreRenderEvent;
 use Ghastly\Config\Config;
@@ -18,7 +19,7 @@ use Ghastly\Template\Renderer;
  * The Ghastly class serves as the applications main point of entry
  */
 class Ghastly {
-    
+
     /**
      * The Config object created from config.php
      * @var Config
@@ -78,7 +79,7 @@ class Ghastly {
 
         /** Instantiate Post Controller **/
         $this->postController = new PostController($this->config, $this->postModel, $this->renderer);
-       
+
         /** Create the event dispatcher **/
         $this->dispatcher = new EventDispatcher();
 
@@ -113,12 +114,24 @@ class Ghastly {
         $this->router->respond('/post/[:id]', function($request){
             $this->postController->single($request);
         });
-        
+
         $this->router->respond('404', function(){
             $this->renderer->setTemplate('404.html');
         });
 
-        $this->router->dispatch();        
+        $request = Request::createFromGlobals();
+
+        /**
+         * Subdirectory support. Need to tell Klein about the subdirectory
+         */
+        if($subdirectory = $this->config->options['subdirectory']) {
+            // Remove the subdirectory from the request uri
+            $uri = $request->server()->get('REQUEST_URI');
+            $request->server()->set('REQUEST_URI', substr($uri, strlen($subdirectory)));
+        }
+
+        // Dispatch the request
+        $this->router->dispatch($request);
 
         /**
          * Let plugins modify template variables after the routes have executed
