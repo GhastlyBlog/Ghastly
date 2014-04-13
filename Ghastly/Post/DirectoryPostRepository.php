@@ -3,6 +3,7 @@
 namespace Ghastly\Post;
 
 use Ghastly\Config\Config;
+use Ghastly\Post\PostFile;
 
 /**
  * Expects the directory it's reading to contain files in a format
@@ -62,11 +63,8 @@ class DirectoryPostRepository implements PostRepositoryInterface {
             // Get the filename of the file
             $filename = $file->getBasename('.'.$this->file_extension);
             
-            // Build post
-            $posts[] = array(
-                'filename'=> $filename, 
-                'date' => $this->_getDateFromFilename($filename)
-            ); 
+            // Build post files
+            $posts[] = new PostFile($filename, $this->_getDateFromFilename($filename));
         }
 
         // Sort results by date desc
@@ -85,12 +83,9 @@ class DirectoryPostRepository implements PostRepositoryInterface {
         $filename = $this->_escape_filename($filename);
         $filepath = $this->directory.DS.$filename.'.'.$this->file_extension;
 
-        $post = array(
-            'filename' => $filename,
-            'date' => $this->_getDateFromFilename($filename)
-        );
+        $post = new PostFile($filename, $this->_getDateFromFilename($filename));
         
-        $this->entities = (file_exists($filepath)) ? array($post) : array();
+        $this->entities = (file_exists($filepath)) ? [$post] : [];
 
         return $this;
     }
@@ -118,8 +113,9 @@ class DirectoryPostRepository implements PostRepositoryInterface {
     {
         if(! $headers_only)
         {
-            foreach($this->entities as $key => $entity) {
-                $this->entities[$key]['content'] = file_get_contents($this->directory.DS.$entity['filename'].'.'.$this->file_extension);
+            foreach($this->entities as $index => $post_file) {
+                $content = file_get_contents($this->directory.DS.$post_file->getFilename().'.'.$this->file_extension);
+                $post_file->setContent($content);
             }
         }
 
@@ -132,7 +128,8 @@ class DirectoryPostRepository implements PostRepositoryInterface {
      */
     public function getResult()
     {
-        $this->entities[0]['content'] = file_get_contents($this->directory.DS.$this->entities[0]['filename'].'.'.$this->file_extension);
+        $content = file_get_contents($this->directory.DS.$this->entities[0]->getFilename().'.'.$this->file_extension);
+        $this->entities[0]->setContent($content); 
         
         return $this->entities[0];
     }
@@ -166,8 +163,8 @@ class DirectoryPostRepository implements PostRepositoryInterface {
     private function _sortByDateDesc($posts)
     {
         usort($posts, function($a, $b){
-            $a_date = $a['date'];
-            $b_date = $b['date'];
+            $a_date = $a->getDate();
+            $b_date = $b->getDate();
 
             if($a_date == $b_date){
                 return 0;

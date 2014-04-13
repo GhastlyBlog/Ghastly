@@ -11,5 +11,5 @@ interface Parsable {
      * @param array $data
      * @return Post
      */
-    public function parse($data);
+    public function parse(PostFile $data);
 }

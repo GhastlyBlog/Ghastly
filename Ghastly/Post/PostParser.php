@@ -3,6 +3,7 @@
 namespace Ghastly\Post;
 
 use \Michelf\Markdown;
+use Ghastly\Post\PostFile;
 
 /** 
  * Can parse a post file 
@@ -14,9 +15,9 @@ class PostParser implements Parsable{
      * @param file $inputFIle
      * @return Post
      */
-	public function parse($inputFile)
+	public function parse(PostFile $inputFile)
 	{
-		$inputFile['content'] = $this->_fixLineEndings($inputFile['content']);
+		$inputFile->setContent($this->_fixLineEndings($inputFile->getContent()));
 
 		$splitFile = $this->_splitFile($inputFile);
 
@@ -57,7 +58,7 @@ class PostParser implements Parsable{
      */
 	private function _splitFile($inputFile)
 	{
-		return explode('---', $inputFile['content']);
+		return explode('---', $inputFile->getContent());
 	}
 
     /**
@@ -98,7 +99,7 @@ class PostParser implements Parsable{
      */
 	private function _parseSlug($inputFile)
 	{
-		return strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($inputFile['filename'])));
+		return strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', trim($inputFile->getFilename())));
 	}
 
     /**
@@ -108,7 +109,7 @@ class PostParser implements Parsable{
      */
 	private function _parseDate($inputFile)
 	{
-		return $inputFile['date']->format('Y-m-d');
+		return $inputFile->getDate()->format('Y-m-d');
 	}
 
     /**
