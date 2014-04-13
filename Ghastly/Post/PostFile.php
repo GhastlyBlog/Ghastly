@@ -25,10 +25,11 @@ class PostFile {
 	 */
 	private $content;
 
-	public function __construct($filename, $date)
+	public function __construct($filename, $date, $content='')
 	{
 		$this->filename = $filename;
 		$this->date = $date;
+		$this->content = $content;
 	}
 
 	/**

@@ -3,6 +3,7 @@
 namespace Ghastly\Test;
 
 use Ghastly\Post\PostParser;
+use Ghastly\Post\PostFile;
 
 class PostParserTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,11 +21,9 @@ tags: tag1, tag2
 It was a dark and stormy night...
 EOT;
 
-		$this->inputFile = [
-			'filename' => '2014-03-26-stormy-night',
-			'date' => new \DateTime('2014-03-26'),
-			'content' => $testPost
-		];
+		$this->inputFile = new PostFile('2014-03-26-stormy-night',
+										new \DateTime('2014-03-26'),
+										$testPost);
 	}
 
 	public function testParse()

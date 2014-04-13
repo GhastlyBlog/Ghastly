@@ -42,7 +42,7 @@ class DirectoryPostRepositoryTest extends \PHPUnit_Framework_TestCase
 	{
 		$dpr = new DirectoryPostRepository($this->cfg);
 		$post = $dpr->findAll()->limit(1)->getResult();
-		$this->assertInstanceOf('DateTime', $post['date']);
-		$this->assertEquals('2014-03-26', $post['date']->format('Y-m-d'));
+		$this->assertInstanceOf('DateTime', $post->getDate());
+		$this->assertEquals('2014-03-26', $post->getDate()->format('Y-m-d'));
 	}
 }
