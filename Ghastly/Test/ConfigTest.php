@@ -26,7 +26,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 		$this->assertContains('post_file_extension', $options);
 	}
 
-	public function testCanOverrideThemeOption()
+	public function testCanOverrideAConfigOption()
 	{
 		$config = new Config(array('blog_title'=>'asdf'));
 		$this->assertEquals('asdf', $config->options['blog_title']);
